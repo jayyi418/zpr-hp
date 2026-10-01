@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>글씨체와 헤드라인 비교</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/variable/woff2/SUIT-Variable.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&display=swap">
+<style>
+  :root { --bg: #F3F4F7; --card: #fff; --line: #E3E6EC; --ink: #0B1220; --muted: #5B6475; --accent: #2F6BFF; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: 'Pretendard Variable', sans-serif; word-break: keep-all; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 40px 20px 80px; }
+  h1 { font-size: 26px; margin: 0 0 6px; letter-spacing: -0.02em; }
+  .sub { color: var(--muted); margin: 0 0 12px; line-height: 1.6; }
+  .note { font-size: 14px; background: #FFF6E5; color: #6A4300; border: 1px solid #F5DDAE; border-radius: 10px; padding: 10px 14px; margin-bottom: 36px; line-height: 1.6; }
+  h2 { font-size: 20px; margin: 48px 0 6px; letter-spacing: -0.02em; }
+  h2 .n { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--accent); margin-right: 8px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 18px; margin-top: 16px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; }
+  .card .top { background: radial-gradient(80% 110% at 80% 30%, #16306a 0%, #0A1224 50%, #06090F 100%); color: #E8EEF9; padding: 26px 24px 24px; }
+  .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .18em; color: #8FC1FF; margin-bottom: 14px; }
+  .hl { font-size: 38px; line-height: 1.16; font-weight: 800; margin: 0; }
+  .hl em { font-style: normal; background: linear-gradient(90deg, #B7D4FF, #3B7BFF); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .en { margin-top: 14px; font-size: 17px; font-weight: 600; color: #CFE0FF; }
+  .nums { display: flex; gap: 22px; margin-top: 18px; padding-top: 16px; border-top: 1px solid rgba(143,193,255,.16); }
+  .nums b { font-size: 30px; font-weight: 800; letter-spacing: -0.02em; }
+  .nums small { font-size: 15px; color: #8FC1FF; margin-left: 2px; font-weight: 700; }
+  .card .body { padding: 20px 24px 22px; }
+  .body p { margin: 0; font-size: 15.5px; line-height: 1.72; color: #3A4354; }
+  .body .h3 { font-size: 19px; font-weight: 750; margin-bottom: 6px; color: var(--ink); }
+  .meta { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; padding: 14px 24px; border-top: 1px solid var(--line); background: #FAFBFC; }
+  .meta b { font-size: 16px; }
+  .meta .tag { font-size: 12px; color: var(--muted); }
+  .meta .rec { font-size: 11.5px; font-weight: 700; color: #fff; background: var(--accent); padding: 3px 9px; border-radius: 999px; }
+  .desc { padding: 0 24px 18px; font-size: 13.5px; color: var(--muted); line-height: 1.6; background: #FAFBFC; }
+
+  .f-wanted { font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif; }
+  .f-suit   { font-family: 'SUIT Variable', 'SUIT', sans-serif; }
+  .f-pre    { font-family: 'Pretendard Variable', Pretendard, sans-serif; }
+  .f-wanted .hl { letter-spacing: -0.03em; }
+  .f-suit .hl { letter-spacing: -0.035em; }
+  .f-pre .hl { letter-spacing: -0.04em; }
+
+  /* headline candidates */
+  .hgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(460px, 1fr)); gap: 18px; margin-top: 16px; }
+  @media (max-width: 520px) { .hgrid { grid-template-columns: 1fr; } }
+  .hcard .top { padding: 34px 28px 30px; min-height: 230px; display: flex; flex-direction: column; justify-content: center; }
+  .hcard .hl { font-size: 42px; }
+  .hcard .lead { margin-top: 14px; font-size: 15px; line-height: 1.65; color: #9AA7BF; max-width: 420px; }
+  .hcard .big { font-size: 64px; font-weight: 800; letter-spacing: -0.04em; line-height: 1; }
+  .hcard .bigsub { margin-top: 12px; font-size: 20px; font-weight: 700; color: #CFE0FF; }
+</style>
+</head>
+<body class="f-wanted">
+<div class="wrap">
+  <h1>글씨체와 헤드라인</h1>
+  <p class="sub">두 가지를 함께 골라 주세요. 채팅에 번호로 답해 주시면 됩니다(예: "폰트 A, 헤드라인 2").</p>
+  <div class="note"><b>Toss Product Sans</b>는 토스 전용 브랜드 폰트라 다른 회사 사이트에는 쓸 수 없습니다. 아래는 느낌이 비슷하면서 <b>상업적 사용이 무료(SIL OFL)</b>인 대안입니다.</div>
+
+  <!-- ============ FONTS ============ -->
+  <h2><span class="n">①</span>글씨체</h2>
+  <p class="sub">세 카드 모두 같은 내용입니다. 헤드라인 굵기, 숫자 모양, 본문 가독성을 비교해 보세요.</p>
+  <div class="grid">
+    <div class="card f-wanted">
+      <div class="top">
+        <div class="eyebrow">AI · ROBOTICS HARDWARE</div>
+        <p class="hl">설계는 AI로,<br><em>부품은 기판 속으로</em></p>
+        <div class="en">Engineering smaller, smarter hardware.</div>
+        <div class="nums"><span><b>92</b><small>%</small></span><span><b>98</b><small>%</small></span><span><b>22</b><small>년</small></span></div>
+      </div>
+      <div class="body"><div class="h3">5D 임베디드 PCB</div><p>수동 부품을 기판 표면이 아닌 내부 레이어에 내장합니다. 같은 기능을 더 작은 면적과 더 낮은 비용으로 구현합니다.</p></div>
+      <div class="meta"><b>A. 원티드 산스 (Wanted Sans)</b><span class="rec">토스와 가장 비슷</span></div>
+      <div class="desc">곡선이 둥글고 글자 폭이 여유로워 토스처럼 부드럽고 친근하면서도 정돈된 인상을 줍니다. 한·영·숫자의 결이 잘 맞습니다.</div>
+    </div>
+
+    <div class="card f-suit">
+      <div class="top">
+        <div class="eyebrow">AI · ROBOTICS HARDWARE</div>
+        <p class="hl">설계는 AI로,<br><em>부품은 기판 속으로</em></p>
+        <div class="en">Engineering smaller, smarter hardware.</div>
+        <div class="nums"><span><b>92</b><small>%</small></span><span><b>98</b><small>%</small></span><span><b>22</b><small>년</small></span></div>
+      </div>
+      <div class="body"><div class="h3">5D 임베디드 PCB</div><p>수동 부품을 기판 표면이 아닌 내부 레이어에 내장합니다. 같은 기능을 더 작은 면적과 더 낮은 비용으로 구현합니다.</p></div>
+      <div class="meta"><b>B. SUIT</b><span class="tag">기하학적 · 단단함</span></div>
+      <div class="desc">원과 직선 위주의 기하학적 형태로, A보다 단단하고 기술적인 인상입니다. 숫자가 반듯해 수치를 강조하기 좋습니다.</div>
+    </div>
+
+    <div class="card f-pre">
+      <div class="top">
+        <div class="eyebrow">AI · ROBOTICS HARDWARE</div>
+        <p class="hl">설계는 AI로,<br><em>부품은 기판 속으로</em></p>
+        <div class="en">Engineering smaller, smarter hardware.</div>
+        <div class="nums"><span><b>92</b><small>%</small></span><span><b>98</b><small>%</small></span><span><b>22</b><small>년</small></span></div>
+      </div>
+      <div class="body"><div class="h3">5D 임베디드 PCB</div><p>수동 부품을 기판 표면이 아닌 내부 레이어에 내장합니다. 같은 기능을 더 작은 면적과 더 낮은 비용으로 구현합니다.</p></div>
+      <div class="meta"><b>C. 프리텐다드 (현재 시안)</b><span class="tag">가장 중립적</span></div>
+      <div class="desc">가장 널리 쓰이는 중립적인 고딕입니다. 무난하지만 그만큼 개성은 약하고, 토스 느낌과는 거리가 있습니다.</div>
+    </div>
+  </div>
+
+  <!-- ============ HEADLINES ============ -->
+  <h2><span class="n">②</span>헤드라인 후보</h2>
+  <p class="sub">"전력의 한계를 다시 설계합니다"를 대신할 문구입니다. 폰트 A로 표시했습니다.</p>
+  <div class="hgrid">
+    <div class="card hcard">
+      <div class="top">
+        <div class="eyebrow">AI · ROBOTICS HARDWARE</div>
+        <p class="hl">설계는 AI로,<br><em>부품은 기판 속으로</em></p>
+        <p class="lead">AI 설계 자동화와 5D 임베디드 PCB로, 더 작고 더 효율적인 AI·로봇 하드웨어를 만듭니다.</p>
+      </div>
+      <div class="meta"><b>1. 핵심 기술 두 가지를 대구로</b><span class="rec">추천</span></div>
+      <div class="desc">제피로스만의 방법(AI 설계, 기판 내장)을 바로 말합니다. 기억에 남고 다른 회사가 똑같이 쓰기 어려운 문장입니다.</div>
+    </div>
+
+    <div class="card hcard">
+      <div class="top">
+        <div class="eyebrow">AI · ROBOTICS HARDWARE</div>
+        <p class="hl">AI와 로봇을 위한<br><em>더 작은 하드웨어</em></p>
+        <p class="lead">22년 임베디드 PCB 기술과 AI 설계 자동화로 전력 효율과 초소형화를 함께 해결합니다.</p>
+      </div>
+      <div class="meta"><b>2. 무엇을 하는 회사인지 한 번에</b><span class="tag">명료함</span></div>
+      <div class="desc">처음 보는 사람도 바로 이해합니다. 다만 비슷한 문장을 다른 회사도 쓸 수 있어 개성은 약합니다.</div>
+    </div>
+
+    <div class="card hcard">
+      <div class="top">
+        <div class="eyebrow">AI · ROBOTICS HARDWARE</div>
+        <p class="hl">같은 기능을,<br><em>더 작은 기판에</em></p>
+        <p class="lead">부품을 기판 안에 넣고 시제품 대신 시뮬레이션으로 검증합니다. AI·로봇 하드웨어의 크기와 전력을 줄입니다.</p>
+      </div>
+      <div class="meta"><b>3. 고객이 얻는 결과로</b><span class="tag">고객 관점</span></div>
+      <div class="desc">B2B 고객이 얻는 이득(소형화)을 앞세웁니다. 현재 시안의 "Why ZEPHYROS" 제목과 겹쳐서, 고르시면 그쪽 제목을 바꿉니다.</div>
+    </div>
+
+    <div class="card hcard">
+      <div class="top">
+        <div class="big">AI &amp; Robotics</div>
+        <div class="bigsub">AI·로봇용 반도체 및 시스템 설계</div>
+        <p class="lead">기존 사이트의 큰 영문 타이포를 이어받아 브랜드 연속성을 지킵니다.</p>
+      </div>
+      <div class="meta"><b>4. 기존 사이트 계승</b><span class="tag">연속성</span></div>
+      <div class="desc">지금 사이트를 본 사람에게는 익숙합니다. 대신 제피로스만의 차별점은 헤드라인에서 드러나지 않습니다.</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

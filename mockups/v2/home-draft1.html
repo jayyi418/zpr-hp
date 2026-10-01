@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ZEPHYROS 홈 시안 v2</title>
+<script>document.documentElement.classList.add('js')</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&display=swap">
+<style>
+/* =========================================================
+   Tokens — colors from the logo + IR deck, type/layout measured
+   on furiosa.ai (dark sections) and diode.computer (paper sections)
+   ========================================================= */
+:root {
+  --abyss: #030A1F; --navy: #0A1A5A; --royal: #0048C8; --royal-hi: #1A5CDB; --sky: #3A88E8;
+  --cerulean: #0A6AAA; --steel: #62A2D2;
+  --paper: #F2F4F7; --ink: #0B1433; --line: #D3DAE4; --muted-l: #4F5A73;
+  --on-dark: #EEF2FA; --muted-d: #8F9BB8; --hair-d: rgba(98,162,210,.22);
+  --sans: 'Wanted Sans Variable', 'Wanted Sans', -apple-system, system-ui, sans-serif;
+  --mono: 'Geist Mono', 'Wanted Sans Variable', ui-monospace, monospace;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; font: 400 16px/1.65 var(--sans); color: var(--on-dark); background: var(--abyss); word-break: keep-all; overflow-wrap: break-word; -webkit-font-smoothing: antialiased; }
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+h1, h2, h3, h4, p, figure { margin: 0; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+.container { width: min(100% - 172.8px, 1248px); margin-inline: auto; }
+@media (max-width: 767px) { .container { width: calc(100% - 40px); } }
+.dark { background: var(--abyss); color: var(--on-dark); }
+.paper { background: var(--paper); color: var(--ink); }
+.sec { padding: 144px 0; }
+.sec.sm { padding: 96px 0; }
+@media (max-width: 767px) { .sec { padding: 96px 0; } .sec.sm { padding: 72px 0; } }
+
+/* type scale (Furiosa / Diode measured) */
+.t-display { font-weight: 400; font-size: 72px; line-height: 1.1; text-transform: uppercase; letter-spacing: -0.01em; }
+.t-h1 { font-weight: 500; font-size: 64px; line-height: 1.2; letter-spacing: -0.02em; }
+.t-h2 { font-weight: 500; font-size: 48px; line-height: 1.2; letter-spacing: -0.02em; }
+.t-h3 { font-weight: 400; font-size: 36px; line-height: 1.3; letter-spacing: -0.015em; }
+.t-h4 { font-weight: 400; font-size: 28px; line-height: 1.2; }
+.t-lead { font-weight: 400; font-size: 24px; line-height: 1.5; }
+.t-18 { font-size: 18px; line-height: 1.6; }
+.t-label { font: 400 14px/1.5 var(--mono); letter-spacing: .02em; }
+.mono { font-family: var(--mono); }
+.muted-d { color: var(--muted-d); } .muted-l { color: var(--muted-l); }
+@media (max-width: 767px) {
+  .t-display { font-size: 44px; } .t-h1 { font-size: 38px; } .t-h2 { font-size: 32px; } .t-h3 { font-size: 26px; } .t-h4 { font-size: 22px; } .t-lead { font-size: 19px; } .t-18 { font-size: 16.5px; }
+}
+.brand i { display: inline-block; width: .42em; }
+.brand { white-space: nowrap; }
+
+/* buttons (Furiosa: mono 16px, 14/24 padding, r6, h50) */
+.btn { display: inline-flex; align-items: center; gap: 10px; height: 50px; padding: 0 24px; border-radius: 6px; font: 400 16px/1 var(--mono); white-space: nowrap; transition: background .2s, color .2s, transform .2s; }
+.btn:hover { transform: translateY(-1px); }
+.btn-primary { background: var(--royal); color: #fff; }
+.btn-primary:hover { background: var(--royal-hi); }
+.btn-white { background: #fff; color: var(--ink); }
+.btn-line { height: auto; padding: 10px 16px; border: 1px solid var(--ink); border-radius: 0; font-size: 17px; color: var(--ink); background: transparent; }
+.btn-line:hover { background: var(--ink); color: #fff; transform: none; }
+.ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+.chip { display: inline-flex; align-items: center; height: 44px; padding: 0 20px; border-radius: 6px; font: 400 14px/1 var(--mono); background: #fff; color: var(--ink); white-space: nowrap; transition: background .2s, color .2s; }
+.chip.on, .chip:hover { background: var(--royal); color: #fff; }
+.tagHW, .tagSW { display: inline-block; font: 500 11px/1 var(--mono); letter-spacing: .06em; padding: 4px 6px; border-radius: 3px; vertical-align: middle; }
+.tagHW { background: var(--royal); color: #fff; }
+.tagSW { border: 1px solid currentColor; }
+
+/* =========================================================
+   Header — 54px, transparent, not sticky (Furiosa)
+   ========================================================= */
+.hdr { position: absolute; inset: 0 0 auto 0; height: 54px; z-index: 20; }
+.hdr .container { height: 100%; display: flex; align-items: center; gap: 40px; }
+.logo { display: flex; align-items: center; gap: 9px; margin-right: auto; font-weight: 700; font-size: 17px; letter-spacing: .01em; color: #fff; }
+.logo .mark { display: block; height: 24px; width: calc(24px * .85); overflow: hidden; flex: none; }
+.logo .mark img { height: 100%; width: auto; max-width: none; }
+.hdr nav ul { display: flex; gap: 32px; font-size: 16px; font-weight: 500; }
+.hdr nav a { opacity: .9; } .hdr nav a:hover { opacity: 1; color: var(--sky); }
+.hdr .tools { display: flex; align-items: center; gap: 16px; }
+.hdr .lang { font: 400 13px var(--mono); color: var(--muted-d); } .hdr .lang b { color: #fff; font-weight: 500; }
+.hdr .btn { height: 34px; padding: 0 16px; font-size: 14px; }
+@media (max-width: 959px) { .hdr nav, .hdr .lang { display: none; } }
+
+/* =========================================================
+   01 Hero
+   ========================================================= */
+.hero { position: relative; overflow: hidden; isolation: isolate; padding: 160px 0 0; min-height: 100vh; display: flex; flex-direction: column; }
+.hero .circuit { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; opacity: .9;
+  -webkit-mask-image: linear-gradient(90deg, rgba(0,0,0,.25), #000 60%); mask-image: linear-gradient(90deg, rgba(0,0,0,.25), #000 60%); }
+.hero-grid { flex: 1; display: grid; grid-template-columns: 7fr 5fr; gap: 48px; align-items: center; }
+.hero .t-h1 span { white-space: nowrap; }
+@media (max-width: 767px) { .hero .t-h1 span { white-space: normal; } }
+.hero .eyebrow { color: var(--sky); margin-bottom: 28px; }
+.hero .t-h1 { margin-bottom: 28px; }
+.hero .t-lead { color: var(--muted-d); max-width: 520px; margin-bottom: 40px; }
+.hero-note { margin-top: 14px; color: var(--muted-d); }
+.tagrail { display: flex; flex-wrap: wrap; gap: 10px; padding: 64px 0 96px; }
+@media (max-width: 959px) { .hero-grid { grid-template-columns: 1fr; } .hero { padding-top: 120px; } }
+
+/* X-ray lens board (Diode) */
+.xray { position: relative; --x: 62%; --y: 50%; --r: 17%; cursor: crosshair; touch-action: none; overflow: hidden; }
+.xray svg { display: block; width: 100%; height: auto; }
+.xray .in { position: absolute; inset: 0; clip-path: circle(var(--r) at var(--x) var(--y)); }
+.xray .ring { position: absolute; left: var(--x); top: var(--y); width: calc(var(--r) * 2 * .45); aspect-ratio: 1; transform: translate(-50%, -50%); border: 1px solid var(--steel); border-radius: 50%; pointer-events: none; }
+.xray .lbl { position: absolute; left: var(--x); top: var(--y); transform: translate(18%, -330%); font: 400 12px var(--mono); background: var(--royal); color: #fff; padding: 5px 8px; border-radius: 3px; white-space: nowrap; pointer-events: none; }
+.xray-cap { display: flex; justify-content: space-between; margin-top: 12px; color: var(--muted-d); }
+
+/* =========================================================
+   03 Statement
+   ========================================================= */
+.statement { text-align: center; position: relative; overflow: hidden; isolation: isolate; }
+/* generated imagery drops in here when present (assets/gen/*.png); missing files remove themselves */
+.gen-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; opacity: .5;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 35%, #000 70%, transparent 100%); mask-image: linear-gradient(180deg, transparent 0%, #000 35%, #000 70%, transparent 100%); }
+.statement .inner { width: min(100%, 816px); margin: 0 auto; }
+.statement .t-h2 { margin: 20px 0 24px; }
+.statement p.t-18 { color: var(--muted-d); }
+.statement .ctas { justify-content: center; margin-top: 40px; }
+.flip { margin-top: 96px; border-top: 1px solid var(--hair-d); display: grid; grid-template-columns: repeat(3, 1fr); text-align: left; }
+.flip > div { padding: 28px 28px 0 0; }
+.flip > div + div { padding-left: 28px; border-left: 1px solid var(--hair-d); }
+.flip .from { color: var(--muted-d); text-decoration: line-through; text-decoration-color: rgba(143,155,184,.5); }
+.flip .to { font-size: 24px; line-height: 1.4; margin-top: 8px; }
+.flip .to b { color: var(--sky); font-weight: 400; }
+@media (max-width: 767px) { .flip { grid-template-columns: 1fr; } .flip > div + div { padding-left: 0; border-left: 0; border-top: 1px solid var(--hair-d); margin-top: 24px; } }
+
+/* =========================================================
+   04 HW×SW engine (pinned layer explode, dark)
+   ========================================================= */
+.engine { --l1-face: rgba(22,38,78,.94); --l1-side: #0B1530; --l1-stroke: #62A2D2; --l2-face: rgba(10,26,90,.7); --l2-side: #081454; --l2-stroke: #3A88E8; --l3-face: #0048C8; --l3-side: #00308A; --l3-stroke: #62A2D2; --trace: #62A2D2; --comp-top: #1B2744; --comp-side: #0A1022; --comp-side2: #121B33; --comp-edge: #9CC3FF; --accent: #3A88E8; --fg: #EEF2FA; --muted: #8F9BB8; }
+.engine-pin { min-height: 100vh; display: flex; align-items: center; padding: 96px 0; }
+.engine-grid { display: grid; grid-template-columns: 5fr 7fr; gap: 48px; align-items: center; }
+.engine .t-h2 { margin: 20px 0 20px; }
+.engine .intro { color: var(--muted-d); max-width: 480px; }
+.steps { margin-top: 40px; border-top: 1px solid var(--hair-d); }
+.step { display: grid; grid-template-columns: 44px 1fr; padding: 18px 0; border-bottom: 1px solid var(--hair-d); opacity: .4; transition: opacity .4s; }
+.step.active { opacity: 1; }
+.step .n { font: 400 14px var(--mono); color: var(--sky); padding-top: 4px; }
+.step h3 { font-weight: 500; font-size: 22px; display: flex; gap: 10px; align-items: center; }
+.step p { margin-top: 6px; color: var(--muted-d); font-size: 15.5px; }
+.engine svg#pcb { width: 100%; height: auto; max-height: 78vh; overflow: visible; display: block; }
+.engine figcaption { text-align: center; margin-top: 8px; color: var(--muted-d); }
+.engine.static .step { opacity: 1; }
+@media (max-width: 959px) { .engine-pin { min-height: 0; } .engine-grid { grid-template-columns: 1fr; } .engine figure { order: -1; } }
+
+/* =========================================================
+   05 Core technology tabs (paper, Diode)
+   ========================================================= */
+.center-head { text-align: center; width: min(100%, 896px); margin: 0 auto; }
+.center-head .t-h2 { font-weight: 400; letter-spacing: -0.04em; margin: 16px 0 24px; }
+.center-head p { color: var(--muted-l); }
+.tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin: 64px 0 40px; }
+.tab { font: 400 16px/1 var(--mono); padding: 12px 16px; border: 1px solid var(--ink); background: transparent; color: var(--ink); cursor: pointer; display: inline-flex; gap: 10px; align-items: center; }
+.tab[aria-selected="true"] { background: var(--ink); color: #fff; }
+.tab .tagHW { background: var(--royal); } .tab[aria-selected="true"] .tagSW { color: #fff; }
+.panel { border: 1px solid var(--ink); background: #fff; }
+.panel-top { display: grid; grid-template-columns: 7fr 5fr; }
+.fig { border-right: 1px solid var(--ink); padding: 24px; display: flex; flex-direction: column; }
+.fig-tools { display: flex; gap: 8px; margin-bottom: 16px; }
+.fig-tools button { font: 400 13px var(--mono); padding: 6px 10px; border: 1px solid var(--line); background: #fff; color: var(--muted-l); cursor: pointer; }
+.fig-tools button[aria-pressed="true"] { border-color: var(--ink); color: var(--ink); }
+.fig .media { flex: 1; min-height: 360px; display: grid; place-items: center; background: #fff; }
+.fig .media img { max-height: 420px; width: 100%; object-fit: contain; }
+.fig .cap { margin-top: 16px; color: var(--muted-l); }
+.body { padding: 32px; display: flex; flex-direction: column; }
+.body .no { color: var(--royal); display: flex; gap: 10px; align-items: center; }
+.body .t-h3 { margin: 12px 0 16px; }
+.body p { color: var(--muted-l); }
+.specs { margin-top: auto; padding-top: 28px; display: grid; grid-template-columns: repeat(2, 1fr); border-top: 1px solid var(--line); }
+.specs > div { padding: 18px 0 0; }
+.specs .v { font: 400 28px/1.2 var(--mono); color: var(--ink); letter-spacing: -0.02em; }
+.specs .k { color: var(--muted-l); margin-top: 4px; }
+.pap { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--ink); }
+.pap > div { padding: 20px 24px; }
+.pap > div + div { border-left: 1px solid var(--ink); }
+.pap b { display: block; font: 500 13px var(--mono); letter-spacing: .08em; margin-bottom: 8px; }
+.pap .t-18 { font-size: 16px; }
+@media (max-width: 959px) { .panel-top { grid-template-columns: 1fr; } .fig { border-right: 0; border-bottom: 1px solid var(--ink); } .pap { grid-template-columns: 1fr 1fr; } .pap > div:nth-child(3) { border-left: 0; } .pap > div:nth-child(n+3) { border-top: 1px solid var(--ink); } }
+
+/* compare slider inside tab 02 (v1 I-4) */
+.compare { --pos: 50%; position: relative; width: 100%; aspect-ratio: 5 / 3; overflow: hidden; background: #EEF1F6; user-select: none; }
+.compare svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.compare .after { clip-path: inset(0 0 0 var(--pos)); }
+.compare .handle { position: absolute; top: 0; bottom: 0; left: var(--pos); width: 2px; margin-left: -1px; background: #fff; pointer-events: none; }
+.compare .knob { position: absolute; top: 50%; left: 50%; width: 40px; height: 40px; margin: -20px 0 0 -20px; background: #fff; border: 1px solid var(--ink); display: grid; place-items: center; font: 400 13px var(--mono); color: var(--ink); }
+.compare input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: ew-resize; }
+.compare .cl, .compare .cr { position: absolute; top: 12px; font: 400 12px var(--mono); padding: 5px 8px; pointer-events: none; }
+.compare .cl { left: 12px; background: #fff; border: 1px solid var(--ink); color: var(--ink); }
+.compare .cr { right: 12px; background: var(--ink); color: #fff; }
+
+/* =========================================================
+   06 One-Spin (paper)
+   ========================================================= */
+.onespin .head { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: end; margin-bottom: 64px; }
+.onespin .t-h2 { font-weight: 400; letter-spacing: -0.04em; margin-top: 16px; }
+.cmp-table { border: 1px solid var(--ink); background: #fff; }
+.cmp-row { display: grid; grid-template-columns: 200px 1fr; border-top: 1px solid var(--ink); }
+.cmp-row:first-child { border-top: 0; }
+.cmp-row .k { padding: 24px; border-right: 1px solid var(--ink); }
+.cmp-row .k b { display: block; font: 500 13px var(--mono); letter-spacing: .08em; margin-bottom: 4px; }
+.cmp-row .bars { padding: 20px 24px; display: grid; gap: 12px; }
+.bar { display: grid; grid-template-columns: 110px 1fr; align-items: center; gap: 16px; }
+.bar .who { font: 400 13px var(--mono); color: var(--muted-l); }
+.bar .track { position: relative; height: 34px; }
+.bar .fill { position: absolute; left: 0; top: 0; bottom: 0; width: var(--w); transform-origin: left; transform: scaleX(var(--s, 0)); transition: transform 1.2s cubic-bezier(.2,.7,.2,1); }
+.bar.old .fill { background: repeating-linear-gradient(135deg, #C9D1DE 0 6px, #DCE2EB 6px 12px); }
+.bar.new .fill { background: var(--royal); }
+.bar .val { position: absolute; left: calc(var(--w) + 12px); top: 50%; transform: translateY(-50%); font: 400 16px var(--mono); white-space: nowrap; }
+.bar.new .val { color: var(--royal); }
+.onespin.in .fill { --s: 1; }
+.onespin .src { margin-top: 16px; color: var(--muted-l); }
+@media (max-width: 767px) {
+  .onespin .head { grid-template-columns: 1fr; } .cmp-row { grid-template-columns: 1fr; } .cmp-row .k { border-right: 0; border-bottom: 1px solid var(--ink); }
+  .bar { grid-template-columns: 72px minmax(0, 1fr); } .bar .track { height: 22px; margin-top: 20px; }
+  .bar .val { left: auto; right: 0; top: -4px; transform: translateY(-100%); font-size: 13px; }
+}
+
+/* =========================================================
+   07 Z·P·R roadmap (dark)
+   ========================================================= */
+.zpr .head { display: grid; grid-template-columns: 7fr 5fr; gap: 48px; align-items: end; margin-bottom: 64px; }
+.zpr .t-display { color: #fff; }
+.zpr .t-display span { color: var(--sky); }
+.zpr .status { display: inline-flex; gap: 8px; align-items: center; margin-top: 20px; color: var(--muted-d); }
+.zpr .status i { width: 8px; height: 8px; border-radius: 50%; background: var(--sky); box-shadow: 0 0 0 4px rgba(58,136,232,.2); }
+.lines { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.line { border: 1px solid var(--hair-d); border-radius: 6px; overflow: hidden; background: rgba(10,26,90,.18); transition: border-color .3s, background .3s; }
+.line.hl { border-color: var(--sky); background: rgba(10,26,90,.45); }
+.line .vis { aspect-ratio: 4 / 3; position: relative; border-bottom: 1px solid var(--hair-d); background: radial-gradient(70% 70% at 50% 45%, #0E2468 0%, #030A1F 75%); }
+.line .vis img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.line .vis .L { position: absolute; left: 20px; top: 16px; font: 400 72px/1 var(--mono); color: #fff; }
+.line .vis svg { position: absolute; right: 16px; bottom: 16px; width: 58%; opacity: .9; }
+.line .txt { padding: 24px; }
+.line .name { font: 400 14px var(--mono); color: var(--sky); }
+.line h3 { font-weight: 500; font-size: 22px; margin: 8px 0 16px; }
+.gens { border-top: 1px solid var(--hair-d); }
+.gens li { display: flex; justify-content: space-between; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--hair-d); font-size: 15px; }
+.gens .y { font: 400 14px var(--mono); color: var(--muted-d); }
+.techs { margin-top: 16px; display: flex; gap: 6px; flex-wrap: wrap; }
+.techs span { font: 400 12px var(--mono); padding: 4px 8px; border: 1px solid var(--hair-d); border-radius: 3px; color: var(--muted-d); }
+.tl { margin-top: 48px; border-top: 1px solid var(--hair-d); }
+.tl-row { display: grid; grid-template-columns: 120px repeat(4, 1fr); border-bottom: 1px solid var(--hair-d); }
+.tl-row > div { padding: 14px 12px; font: 400 14px var(--mono); position: relative; min-height: 50px; }
+.tl-row > div + div { border-left: 1px solid var(--hair-d); }
+.tl-row.hd > div { color: var(--muted-d); cursor: pointer; }
+.tl-row.hd > div.on { color: #fff; background: rgba(58,136,232,.12); }
+.tl .pill { display: inline-block; padding: 6px 10px; border-radius: 3px; background: rgba(0,72,200,.35); border: 1px solid var(--royal); color: #fff; font-size: 13px; white-space: nowrap; }
+@media (max-width: 959px) { .zpr .head { grid-template-columns: 1fr; } .lines { grid-template-columns: 1fr; } .tl-row { grid-template-columns: 64px repeat(4, 1fr); } .tl .pill { font-size: 11px; padding: 4px 6px; white-space: normal; } }
+
+/* =========================================================
+   08 Founder (paper)
+   ========================================================= */
+.founder .grid { display: grid; grid-template-columns: 4fr 8fr; border: 1px solid var(--ink); background: #fff; }
+.founder .who { border-right: 1px solid var(--ink); padding: 24px; }
+.founder .photo { aspect-ratio: 4 / 5; background: #E9EDF3; overflow: hidden; }
+.founder .photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; filter: grayscale(.15); }
+.founder .who h3 { margin: 20px 0 4px; font-weight: 500; font-size: 28px; }
+.founder .who .role { color: var(--muted-l); }
+.founder .career { margin-top: 20px; border-top: 1px solid var(--line); }
+.founder .career li { display: grid; grid-template-columns: 92px 1fr; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 14.5px; }
+.founder .career .y { font: 400 13px var(--mono); color: var(--muted-l); }
+.founder .facts { display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: 1px solid var(--ink); }
+.founder .facts > div { padding: 28px 32px; }
+.founder .facts > div + div { border-left: 1px solid var(--ink); }
+.founder .facts .v { font: 400 44px/1 var(--mono); letter-spacing: -0.03em; }
+.founder .facts .v small { font-size: 18px; margin-left: 4px; }
+.founder .facts .k { margin-top: 10px; color: var(--muted-l); }
+.awards { width: 100%; border-collapse: collapse; }
+.awards th, .awards td { text-align: left; padding: 14px 32px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.awards th { font: 500 12px var(--mono); letter-spacing: .08em; color: var(--muted-l); padding-top: 20px; }
+.awards td.d { font: 400 14px var(--mono); color: var(--muted-l); white-space: nowrap; width: 120px; }
+.awards td small { display: block; color: var(--royal); margin-top: 4px; font-size: 13.5px; }
+.values { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 48px; border: 1px solid var(--ink); }
+.values > div { padding: 28px 32px; }
+.values > div + div { border-left: 1px solid var(--ink); }
+.values .L { font: 400 44px/1 var(--mono); color: var(--royal); }
+.values h4 { font-weight: 500; font-size: 20px; margin: 14px 0 4px; }
+.vision { text-align: center; margin: 0 auto 64px; width: min(100%, 896px); }
+.vision .t-h2 { font-weight: 400; letter-spacing: -0.04em; margin-top: 16px; }
+@media (max-width: 767px) { .awards th:nth-child(3), .awards td:nth-child(3) { display: none; } }
+@media (max-width: 959px) { .founder .grid { grid-template-columns: minmax(0, 1fr); } .founder .who { border-right: 0; border-bottom: 1px solid var(--ink); } .founder .facts, .values { grid-template-columns: 1fr; } .founder .facts > div + div, .values > div + div { border-left: 0; border-top: 1px solid var(--ink); } .awards th, .awards td { padding: 12px 16px; } }
+
+/* =========================================================
+   09 CTA + footer
+   ========================================================= */
+.cta { position: relative; overflow: hidden; isolation: isolate; text-align: center; }
+.cta .circuit { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; -webkit-mask-image: radial-gradient(ellipse 70% 80% at 50% 50%, transparent 20%, #000 80%); mask-image: radial-gradient(ellipse 70% 80% at 50% 50%, transparent 20%, #000 80%); }
+.cta .t-display { margin: 20px 0; font-size: 64px; text-transform: none; font-weight: 500; letter-spacing: -0.02em; }
+.cta p { color: var(--muted-d); }
+.cta .ctas { justify-content: center; margin-top: 40px; }
+footer { background: #01050F; color: var(--muted-d); font-size: 14px; }
+footer .top { display: grid; grid-template-columns: 4fr 8fr; gap: 48px; padding: 96px 0 48px; border-bottom: 1px solid var(--hair-d); }
+footer .logo { color: #fff; }
+footer .vision-s { margin-top: 16px; max-width: 320px; line-height: 1.6; }
+footer .cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+footer h5 { margin: 0 0 12px; font: 400 12px var(--mono); letter-spacing: .1em; color: #6E7B98; }
+footer li { margin-bottom: 8px; line-height: 1.6; }
+footer li b { color: var(--on-dark); font-weight: 500; }
+footer .bot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; padding: 24px 0 32px; font: 400 13px var(--mono); }
+@media (max-width: 959px) { footer .top { grid-template-columns: 1fr; } footer .cols { grid-template-columns: 1fr; } }
+
+/* reveal */
+.js .rv { opacity: 0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease; }
+.js .rv.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .js .rv { opacity: 1; transform: none; transition: none; } .bar .fill { transition: none; } }
+.mock-badge { position: fixed; left: 14px; bottom: 14px; z-index: 60; font: 400 11px var(--mono); padding: 7px 12px; border-radius: 999px; background: rgba(255,181,71,.95); color: #3A2300; }
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="container">
+    <a class="logo" href="#" aria-label="ZEPHYROS 홈" data-logo></a>
+    <nav aria-label="주 메뉴"><ul>
+      <li><a href="#tech">하드웨어</a></li>
+      <li><a href="#tech">소프트웨어</a></li>
+      <li><a href="#zpr">플랫폼</a></li>
+      <li><a href="#company">회사</a></li>
+    </ul></nav>
+    <div class="tools"><span class="lang"><b>KO</b> / EN</span><a class="btn btn-white" href="#contact">문의</a></div>
+  </div>
+</header>
+
+<main>
+<!-- ================= 01 Hero ================= -->
+<section class="hero dark" id="top">
+  <canvas class="circuit" data-density=".8" aria-hidden="true"></canvas>
+  <div class="container hero-grid">
+    <div>
+      <p class="t-label eyebrow">[ PHYSICAL AI — SENSING &amp; NOISE LAYER ]</p>
+      <h1 class="t-h1"><span>AI와 로보틱스를 위한</span><br><span>하드웨어 &amp; 소프트웨어</span></h1>
+      <p class="t-lead">노이즈·전력·센싱 계층을 설계합니다. AI 설계 자동화 소프트웨어와 기판 내장 하드웨어 기술을 하나로 융합합니다.</p>
+      <div class="ctas"><a class="btn btn-primary" href="#contact">기술 상담 요청 ↗</a><a class="btn btn-white" href="#zpr">Z·P·R 로드맵</a></div>
+    </div>
+    <figure>
+      <div class="xray" data-xray></div>
+      <figcaption class="xray-cap t-label"><span>FIG.00 — 표면은 깨끗하게, 부품은 기판 속으로</span><span>커서를 움직여 보세요</span></figcaption>
+    </figure>
+  </div>
+  <div class="container tagrail rv">
+    <a class="chip on" href="#company">장영실상 2회</a><a class="chip" href="#company">등록특허 73건</a><a class="chip" href="#onespin">One-Spin 설계</a><a class="chip" href="#tech">측정-시뮬 정합 98%</a><a class="chip" href="#tech">TTFT 0.1s 목표</a><a class="chip" href="#zpr">Z · P · R 2026–2029</a>
+  </div>
+</section>
+
+<!-- ================= 03 Statement ================= -->
+<section class="statement dark sec">
+  <img class="gen-bg" src="assets/gen/statement.png" alt="" onerror="this.remove()">
+  <div class="container">
+    <div class="inner rv">
+      <p class="t-label muted-d">01 / POSITIONING</p>
+      <h2 class="t-h2">부품을 올리지 않고,<br>기판 안에 넣습니다</h2>
+      <p class="t-18">빅테크가 채우지 못한 노이즈·전력·센싱 계층을 맡습니다. 소재에서 부품, 모듈, 시스템까지 소프트웨어를 포함해 한 번에 설계합니다.</p>
+      <div class="ctas"><a class="btn btn-primary" href="#tech">핵심 기술 보기 ↗</a><a class="btn btn-white" href="#onespin">One-Spin 설계</a></div>
+    </div>
+    <div class="flip rv">
+      <div><p class="t-label muted-d">NOISE</p><p class="from">막는 부품</p><p class="to">노이즈를 <b>에너지로 버는</b> 부품</p></div>
+      <div><p class="t-label muted-d">SHIELD</p><p class="from">차폐재로 덮기</p><p class="to"><b>소자 구조</b>로 해결, 차폐가 곧 센서</p></div>
+      <div><p class="t-label muted-d">VERIFY</p><p class="from">출시 후 EMC 문제 발견</p><p class="to"><b>설계 단계</b>에서 먼저 검증</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 04 HW×SW engine ================= -->
+<section class="engine dark" id="engine">
+  <div class="engine-pin">
+    <div class="container engine-grid">
+      <div>
+        <p class="t-label muted-d">02 / HW × SW ENGINE</p>
+        <h2 class="t-h2">하드웨어와 소프트웨어,<br>하나로 융합해 설계합니다</h2>
+        <p class="intro">소프트웨어로 설계하고, 하드웨어로 구현하고, 다시 소프트웨어로 검증합니다. 측정 데이터는 다시 학습 데이터가 됩니다.</p>
+        <ol class="steps">
+          <li class="step active"><span class="n">01</span><div><h3>AI 설계 자동화 <span class="tagSW">SW</span></h3><p>20년 산업 데이터로 배치와 배선을 자동으로 설계합니다.</p></div></li>
+          <li class="step"><span class="n">02</span><div><h3>기판 내장 <span class="tagHW">HW</span></h3><p>수동 부품을 표면이 아닌 내부 레이어에 집적합니다.</p></div></li>
+          <li class="step"><span class="n">03</span><div><h3>시뮬레이션 검증 <span class="tagSW">SW</span></h3><p>Full 3D 시뮬레이션이 실측과 98% 정합합니다.</p></div></li>
+        </ol>
+      </div>
+      <figure>
+        <svg id="pcb" viewBox="0 0 680 600" role="img" aria-label="PCB 레이어가 분리되며 부품이 내부 레이어로 들어가는 개념도"></svg>
+        <figcaption class="t-label">FIG. HW × SW ENGINE — CONCEPT</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 05 Core tech (paper) ================= -->
+<section class="paper sec" id="tech">
+  <div class="container">
+    <div class="center-head rv">
+      <p class="t-label muted-l">03 / CORE TECHNOLOGY · 01—05</p>
+      <h2 class="t-h2">다섯 가지 기술, 하나의 계층</h2>
+      <p class="t-18">하드웨어 세 가지와 소프트웨어 두 가지로 노이즈·전력·센싱 문제를 풉니다. 모든 수치와 도판은 자사 실증 자료입니다.</p>
+    </div>
+    <div class="tabs" role="tablist" aria-label="핵심 기술"></div>
+    <div class="panel rv" role="tabpanel" id="tech-panel"></div>
+  </div>
+</section>
+
+<!-- ================= 06 One-Spin (paper) ================= -->
+<section class="paper sec onespin" id="onespin" style="padding-top:0">
+  <div class="container">
+    <div class="head rv">
+      <div><p class="t-label muted-l">04 / ONE-SPIN</p><h2 class="t-h2">시제품을 반복하지 않습니다</h2></div>
+      <p class="t-18 muted-l">설계 단계에서 EMC를 먼저 검증해 한 번의 시제작으로 끝냅니다. 종래 방식과 같은 기준으로 비교했습니다.</p>
+    </div>
+    <div class="cmp-table rv">
+      <div class="cmp-row"><div class="k"><b>PROTOTYPES</b>시제작 횟수</div><div class="bars">
+        <div class="bar old"><span class="who">종래</span><div class="track" style="--w:78%"><div class="fill"></div><span class="val">30~50회</span></div></div>
+        <div class="bar new"><span class="who">ZEPHYROS</span><div class="track" style="--w:2.5%"><div class="fill"></div><span class="val">1회</span></div></div>
+      </div></div>
+      <div class="cmp-row"><div class="k"><b>LEAD TIME</b>개발 기간</div><div class="bars">
+        <div class="bar old"><span class="who">종래</span><div class="track" style="--w:78%"><div class="fill"></div><span class="val">3개월</span></div></div>
+        <div class="bar new"><span class="who">ZEPHYROS</span><div class="track" style="--w:12%"><div class="fill"></div><span class="val">2주</span></div></div>
+      </div></div>
+      <div class="cmp-row"><div class="k"><b>COST</b>One-Spin 원가</div><div class="bars">
+        <div class="bar old"><span class="who">종래</span><div class="track" style="--w:78%"><div class="fill"></div><span class="val">100</span></div></div>
+        <div class="bar new"><span class="who">ZEPHYROS</span><div class="track" style="--w:7.8%"><div class="fill"></div><span class="val">10 (90%↓)</span></div></div>
+      </div></div>
+      <div class="cmp-row"><div class="k"><b>CERTIFICATION</b>인증</div><div class="bars">
+        <div class="bar old"><span class="who">종래</span><div class="track" style="--w:60%"><div class="fill"></div><span class="val">탈락 50%↑ · 재인증 4~16주</span></div></div>
+        <div class="bar new"><span class="who">ZEPHYROS</span><div class="track" style="--w:4%"><div class="fill"></div><span class="val">설계 단계 사전 검증</span></div></div>
+      </div></div>
+    </div>
+    <p class="src t-label">SOURCE — 제피로스 AI 설계 자동화 실증(IR 2026.09). 원가는 종래 = 100 기준 지수.</p>
+  </div>
+</section>
+
+<!-- ================= 07 Z·P·R roadmap (dark) ================= -->
+<section class="zpr dark sec" id="zpr">
+  <div class="container">
+    <div class="head rv">
+      <div><p class="t-label muted-d">05 / PLATFORMS</p><h2 class="t-display">Z <span>·</span> P <span>·</span> R</h2><p class="status t-label"><i></i>ROADMAP · 개발 중, 사양은 확정 시 공개</p></div>
+      <p class="t-18 muted-d">다섯 가지 기술을 엣지 AI 컴퓨터로 묶습니다. 차량(Z), 가정(P), 로봇(R) 세 라인이 플랫폼 1·2세대 위에서 진화합니다.</p>
+    </div>
+    <div class="lines">
+      <article class="line rv" data-line="Z">
+        <div class="vis"><span class="L">Z</span><img src="assets/gen/zpr-z.png" alt="" onerror="this.remove()"></div>
+        <div class="txt"><p class="name">Zero Impedance · 파워</p><h3>차량용 AI Edge Computer</h3>
+          <ul class="gens"><li><span>Z1 · GEN1.0</span><span class="y">2026</span></li><li><span>Z2 · GEN2.0</span><span class="y">2028</span></li></ul>
+          <div class="techs"><span>① EMI·자성부품</span><span>⑤ sLLM·Edge</span></div></div>
+      </article>
+      <article class="line rv" data-line="P">
+        <div class="vis"><span class="L">P</span><img src="assets/gen/zpr-p.png" alt="" onerror="this.remove()"></div>
+        <div class="txt"><p class="name">Pi · 통신</p><h3>가정용 AI Edge Computer</h3>
+          <ul class="gens"><li><span>P1 · GEN1.0</span><span class="y">2027</span></li><li><span>GEN3.0 · 가정/차량 공용</span><span class="y">2029</span></li></ul>
+          <div class="techs"><span>② Embedded L/C</span><span>⑤ sLLM·Edge</span></div></div>
+      </article>
+      <article class="line rv" data-line="R">
+        <div class="vis"><span class="L">R</span><img src="assets/gen/zpr-r.png" alt="" onerror="this.remove()"></div>
+        <div class="txt"><p class="name">ROS · 로봇</p><h3>로봇용 초소형 Edge Computer</h3>
+          <ul class="gens"><li><span>R1 · 촉각 + 무선 + Edge</span><span class="y">2028–29</span></li></ul>
+          <div class="techs"><span>③ LC 촉각센서</span><span>⑤ sLLM·Edge</span></div></div>
+      </article>
+    </div>
+    <div class="tl rv" role="table" aria-label="Z·P·R 출시 로드맵">
+      <div class="tl-row hd" role="row"><div role="columnheader">LINE</div><div data-y="2026">2026</div><div data-y="2027">2027</div><div data-y="2028">2028</div><div data-y="2029">2029</div></div>
+      <div class="tl-row" role="row" data-line="Z"><div>Z</div><div><span class="pill">Z1 GEN1.0</span></div><div></div><div><span class="pill">Z2 GEN2.0</span></div><div></div></div>
+      <div class="tl-row" role="row" data-line="P"><div>P</div><div></div><div><span class="pill">P1 GEN1.0</span></div><div></div><div><span class="pill">GEN3.0 공용</span></div></div>
+      <div class="tl-row" role="row" data-line="R"><div>R</div><div></div><div></div><div style="grid-column: span 2"><span class="pill">R1 초소형</span></div></div>
+      <div class="tl-row" role="row"><div class="muted-d">PLATFORM</div><div class="muted-d">MPU+NPU · Platform 1</div><div></div><div class="muted-d">Platform 2</div><div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 08 Company / Founder (paper) ================= -->
+<section class="paper sec founder" id="company">
+  <div class="container">
+    <div class="vision rv">
+      <p class="t-label muted-l">06 / COMPANY</p>
+      <h2 class="t-h2">Leading the future through<br>creative ecosystems</h2>
+    </div>
+    <div class="grid rv">
+      <div class="who">
+        <div class="photo"><img src="assets/ir/ceo.png" alt="김유선 대표이사"></div>
+        <h3>김유선</h3>
+        <p class="role">대표이사 · 공학박사(Ph.D.)<br>전 LG이노텍 책임연구원</p>
+        <ul class="career">
+          <li><span class="y">~2010</span><span>전자컴퓨터공학 학사·석사·박사</span></li>
+          <li><span class="y">2010–2012</span><span>LG Power 사업부</span></li>
+          <li><span class="y">2013–2015</span><span>LG Network Solution 사업부</span></li>
+          <li><span class="y">2015–2017</span><span>LG 소자소재연구소</span></li>
+          <li><span class="y">2017–2025</span><span>LG Science Park 미래기술연구소 CTO 부문</span></li>
+        </ul>
+      </div>
+      <div>
+        <div class="facts">
+          <div><div class="v"><span data-count="73">73</span><small>건</small></div><div class="k">등록특허</div></div>
+          <div><div class="v"><span data-count="10">10</span><small>회+</small></div><div class="k">양산 성공 경험<br><span class="t-label">소재·부품·모듈·시스템 통합 설계</span></div></div>
+          <div><div class="v"><span data-count="2">2</span><small>회</small></div><div class="k">장영실상</div></div>
+        </div>
+        <table class="awards">
+          <thead><tr><th>DATE</th><th>AWARD</th><th>ISSUER</th></tr></thead>
+          <tbody>
+            <tr><td class="d">2025.06</td><td>해동 산업체 우수기술 논문상</td><td>해동과학문화재단</td></tr>
+            <tr><td class="d">2023.12</td><td>나노산업발전유공자 포장(산업부장관상)</td><td>산업통상자원부</td></tr>
+            <tr><td class="d">2023.11</td><td>장영실상<small>세계 최초 무선 통신용 안테나 아이솔레이터</small></td><td>산업기술진흥협회</td></tr>
+            <tr><td class="d">2023.04</td><td>에디슨상 동상</td><td>Edison Awards (미국)</td></tr>
+            <tr><td class="d">2023.04</td><td>LG Award R&amp;D 부문</td><td>(주)LG</td></tr>
+            <tr><td class="d">2022.03</td><td>장영실상<small>세계에서 가장 얇은 초박형·초저손실 자성부품</small></td><td>산업기술진흥협회</td></tr>
+            <tr><td class="d">2021.10</td><td>한국의 우수기술성과 선정</td><td>한국공학한림원</td></tr>
+            <tr><td class="d">2020.01</td><td>LG Award R&amp;D 부문</td><td>(주)LG</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="values rv">
+      <div><span class="L">Z</span><h4>Zero-compromise</h4><p class="muted-l">타협 없이</p></div>
+      <div><span class="L">P</span><h4>Pioneer</h4><p class="muted-l">개척한다</p></div>
+      <div><span class="L">R</span><h4>Resolve</h4><p class="muted-l">해결한다</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 09 CTA ================= -->
+<section class="cta dark sec" id="contact">
+  <img class="gen-bg" src="assets/gen/cta.png" alt="" onerror="this.remove()">
+  <canvas class="circuit" data-density=".6" aria-hidden="true"></canvas>
+  <div class="container rv">
+    <p class="t-label muted-d">07 / CONTACT</p>
+    <h2 class="t-display">당신의 하드웨어,<br>더 작고 더 효율적으로.</h2>
+    <p class="t-18">제품 사양과 과제를 알려주시면 제피로스의 기술로 가능한 방법을 제안해 드립니다.</p>
+    <div class="ctas"><a class="btn btn-primary" href="#">기술 상담 요청 ↗</a><a class="btn btn-white" href="mailto:sdh@zpr.co.kr">sdh@zpr.co.kr</a></div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="top">
+      <div><a class="logo" href="#" aria-label="ZEPHYROS 홈" data-logo></a><p class="vision-s">Physical AI의 감각·노이즈 계층을 설계하는 반도체·시스템 기업</p></div>
+      <div class="cols">
+        <div><h5>HEADQUARTERS</h5><ul><li><b>본사</b></li><li>경기 수원시 영통구 월드컵로 199, 403호</li></ul></div>
+        <div><h5>OFFICES</h5><ul><li><b>마곡 영업소</b> · 서울 강서구 금낭화로 136, 1020호</li><li><b>공덕 연구소</b> · 서울 마포구 백범로31길 21, 서울창업허브 별관 308호</li></ul></div>
+        <div><h5>COMPANY</h5><ul><li>제피로스 일렉트로닉스(주)</li><li>대표이사 김유선</li><li>사업자등록번호 532-88-03254</li><li><a href="mailto:sdh@zpr.co.kr">sdh@zpr.co.kr</a></li></ul></div>
+      </div>
+    </div>
+    <div class="bot"><span>© 2026 Zephyros Electronics Inc.</span><span>개인정보처리방침 · <b style="color:#fff">KO</b> / EN</span></div>
+  </div>
+</footer>
+
+<div class="mock-badge">시안 v2 · 방향 C(SPLIT) · 카피 초안</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+<script>
+(() => {
+'use strict';
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- logo: official hexagon mark (cropped) + "ZE PHY ROS" ---------- */
+const MARK = 'https://zpr.co.kr/wp-content/uploads/2025/10/%EB%A1%9C%EA%B3%A0_%EC%A0%9C%ED%94%BC%EB%A1%9C%EC%8A%A4_%EA%B0%80%EB%A1%9C_%ED%9D%91_150.png';
+$$('[data-logo]').forEach(el => el.innerHTML = `<span class="mark"><img src="${MARK}" alt=""></span><span class="brand" aria-hidden="true">ZE<i></i>PHY<i></i>ROS</span>`);
+
+/* ---------- I-1 circuit signal field (from v1) ---------- */
+class CircuitField {
+  constructor(c) {
+    this.c = c; this.ctx = c.getContext('2d'); this.density = +c.dataset.density || 1;
+    this.m = { x: -1e4, y: -1e4 }; this.tr = []; this.pu = []; this.near = []; this.run = false; this.acc = 0;
+    this.loop = this.loop.bind(this);
+    new ResizeObserver(() => this.resize()).observe(c);
+    const host = c.parentElement;
+    host.addEventListener('pointermove', e => { const r = c.getBoundingClientRect(); this.m.x = e.clientX - r.left; this.m.y = e.clientY - r.top; });
+    host.addEventListener('pointerleave', () => { this.m.x = this.m.y = -1e4; });
+    new IntersectionObserver(([en]) => en.isIntersecting ? this.start() : this.stop()).observe(c);
+  }
+  resize() {
+    const w = this.c.clientWidth, h = this.c.clientHeight; if (!w || !h) return;
+    const dpr = Math.min(devicePixelRatio || 1, 2); this.w = w; this.h = h;
+    this.c.width = w * dpr; this.c.height = h * dpr; this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const cell = 28, cols = Math.ceil(w / cell) + 2, rows = Math.ceil(h / cell) + 2, n = Math.max(14, Math.round(cols * rows / 22 * this.density));
+    const D = [[1,0],[0,1],[-1,0],[0,-1]]; this.tr = []; this.pu = [];
+    for (let i = 0; i < n; i++) {
+      let x = Math.floor(Math.random() * cols) - 1, y = Math.floor(Math.random() * rows) - 1, d = Math.floor(Math.random() * 4);
+      const p = [[x * cell, y * cell]];
+      for (let s = 0, S = 2 + Math.floor(Math.random() * 3); s < S; s++) { const l = 3 + Math.floor(Math.random() * 8); x += D[d][0] * l; y += D[d][1] * l; p.push([x * cell, y * cell]); d = (d + (Math.random() < .5 ? 1 : 3)) % 4; }
+      this.tr.push(this.mk(p, cell * .6));
+    }
+    if (reduced) this.draw(0);
+  }
+  mk(p, ch) {
+    const o = [p[0]];
+    for (let i = 1; i < p.length - 1; i++) { const [ax, ay] = p[i-1], [px, py] = p[i], [bx, by] = p[i+1]; const l1 = Math.hypot(px-ax, py-ay), l2 = Math.hypot(bx-px, by-py), c = Math.min(ch, l1/2, l2/2); o.push([px-(px-ax)/l1*c, py-(py-ay)/l1*c], [px+(bx-px)/l2*c, py+(by-py)/l2*c]); }
+    o.push(p[p.length - 1]);
+    const L = []; let T = 0, x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9;
+    o.forEach(([x, y], i) => { x0 = Math.min(x0, x); x1 = Math.max(x1, x); y0 = Math.min(y0, y); y1 = Math.max(y1, y); if (i) { const l = Math.hypot(x - o[i-1][0], y - o[i-1][1]); L.push(l); T += l; } });
+    return { p: o, L, T, b: [x0, y0, x1, y1] };
+  }
+  dist(t, mx, my) { const [x0, y0, x1, y1] = t.b; if (mx < x0 - 240 || mx > x1 + 240 || my < y0 - 240 || my > y1 + 240) return 1e9; let best = 1e9;
+    for (let i = 1; i < t.p.length; i++) { const [ax, ay] = t.p[i-1], [bx, by] = t.p[i], dx = bx-ax, dy = by-ay, L = dx*dx + dy*dy || 1, k = Math.max(0, Math.min(1, ((mx-ax)*dx + (my-ay)*dy) / L)); best = Math.min(best, Math.hypot(mx-(ax+dx*k), my-(ay+dy*k))); } return best; }
+  at(t, d) { d = Math.max(0, Math.min(t.T, d)); for (let i = 0; i < t.L.length; i++) { if (d <= t.L[i]) { const [ax, ay] = t.p[i], [bx, by] = t.p[i+1], k = d / t.L[i]; return [ax + (bx-ax)*k, ay + (by-ay)*k, i]; } d -= t.L[i]; } const q = t.p[t.p.length-1]; return [q[0], q[1], t.L.length - 1]; }
+  draw(dt) {
+    const { ctx, m } = this; ctx.clearRect(0, 0, this.w, this.h); ctx.lineCap = ctx.lineJoin = 'round'; this.near = [];
+    for (const t of this.tr) { const g = Math.max(0, 1 - this.dist(t, m.x, m.y) / 200); if (g > .15) this.near.push(t); t.g = g; const a = .08 + .5 * g * g;
+      ctx.strokeStyle = `rgba(98,162,210,${a})`; ctx.lineWidth = 1 + g * .6; ctx.beginPath(); t.p.forEach(([x, y], i) => i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)); ctx.stroke();
+      const [ex, ey] = t.p[t.p.length-1]; ctx.fillStyle = `rgba(98,162,210,${Math.min(1, a * 1.6)})`; ctx.beginPath(); ctx.arc(ex, ey, 2.1, 0, 6.283); ctx.fill(); }
+    if (reduced) return;
+    this.acc += dt; const max = Math.max(10, this.tr.length * .3), ev = .11 / this.density;
+    while (this.acc > ev) { this.acc -= ev; if (this.pu.length < max) { const pool = this.near.length && Math.random() < .55 ? this.near : this.tr; this.pu.push({ t: pool[Math.floor(Math.random() * pool.length)], d: 0, v: 110 + Math.random() * 170 }); } }
+    ctx.shadowColor = '#3A88E8';
+    for (let i = this.pu.length - 1; i >= 0; i--) { const p = this.pu[i]; p.d += p.v * dt * (1 + (p.t.g || 0) * 1.6); if (p.d - 46 > p.t.T) { this.pu.splice(i, 1); continue; }
+      const [hx, hy, hi] = this.at(p.t, p.d), [sx, sy, si] = this.at(p.t, p.d - 46), gr = ctx.createLinearGradient(sx, sy, hx, hy);
+      gr.addColorStop(0, 'rgba(98,162,210,0)'); gr.addColorStop(1, 'rgba(200,225,255,.95)'); ctx.strokeStyle = gr; ctx.lineWidth = 1.7; ctx.shadowBlur = 8;
+      ctx.beginPath(); ctx.moveTo(sx, sy); for (let k = si + 1; k <= hi; k++) ctx.lineTo(p.t.p[k][0], p.t.p[k][1]); ctx.lineTo(hx, hy); ctx.stroke();
+      if (p.d <= p.t.T) { ctx.fillStyle = '#fff'; ctx.shadowBlur = 14; ctx.beginPath(); ctx.arc(hx, hy, 2, 0, 6.283); ctx.fill(); } ctx.shadowBlur = 0; }
+  }
+  loop(now) { if (!this.run) return; const dt = Math.min(.05, (now - this.last) / 1000 || 0); this.last = now; this.draw(dt); requestAnimationFrame(this.loop); }
+  start() { if (reduced || this.run) return; this.run = true; this.last = performance.now(); requestAnimationFrame(this.loop); }
+  stop() { this.run = false; }
+}
+$$('canvas.circuit').forEach(c => new CircuitField(c));
+
+/* ---------- seeded RNG ---------- */
+function rng(s) { return () => { s |= 0; s = s + 0x6D2B79F5 | 0; let t = Math.imul(s ^ s >>> 15, 1 | s); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+
+/* ---------- X-ray board (Diode lens): line art outside, embedded parts inside ---------- */
+function xrayBoard(inside) {
+  const W = 800, H = 480, B = { x: 30, y: 30, w: 740, h: 420 }, chip = { x: 340, y: 180, w: 120, h: 120 };
+  const r = rng(5), parts = [];
+  const hit = a => parts.some(p => a.x < p.x + p.w + 10 && a.x + a.w + 10 > p.x && a.y < p.y + p.h + 10 && a.y + a.h + 10 > p.y) || (a.x < chip.x + chip.w + 26 && a.x + a.w > chip.x - 26 && a.y < chip.y + chip.h + 26 && a.y + a.h > chip.y - 26);
+  for (let t = 0; parts.length < 46 && t < 3000; t++) { const rot = r() < .5, w = rot ? 10 : 22, h = rot ? 22 : 10, a = { x: B.x + 70 + r() * (B.w - 140 - w), y: B.y + 60 + r() * (B.h - 120 - h), w, h }; if (!hit(a)) parts.push(a); }
+  const tr = [];
+  for (let i = -2; i <= 2; i++) { const oy = 240 + i * 18, ox = 400 + i * 22, a = Math.abs(i);
+    tr.push(`M${chip.x} ${oy} H${chip.x - 34 - a * 10} L${chip.x - 56 - a * 10} ${oy + i * 14} H70`, `M${chip.x + chip.w} ${oy} H${chip.x + chip.w + 34 + a * 10} L${chip.x + chip.w + 56 + a * 10} ${oy + i * 14} H730`,
+      `M${ox} ${chip.y} V${chip.y - 24} L${ox + i * 16} ${chip.y - 48} V70`, `M${ox} ${chip.y + chip.h} V${chip.y + chip.h + 24} L${ox + i * 16} ${chip.y + chip.h + 48} V410`); }
+  const conns = [[80, 30, 70, 24], [170, 30, 70, 24], [560, 30, 70, 24], [650, 30, 70, 24], [130, 426, 100, 24], [570, 426, 100, 24], [30, 190, 24, 90], [746, 190, 24, 90]];
+  let s = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">`;
+  if (inside) {
+    s += `<rect x="${B.x}" y="${B.y}" width="${B.w}" height="${B.h}" rx="16" fill="#0A1A5A" stroke="#3A88E8" stroke-width="1.4"/>`;
+    for (let x = B.x + 14; x < B.x + B.w + 60; x += 14) s += `<line x1="${x}" y1="${B.y + 4}" x2="${x - 60}" y2="${B.y + B.h - 4}" stroke="#12298A" stroke-width="1"/>`;
+    s += tr.map(d => `<path d="${d}" fill="none" stroke="#3A88E8" stroke-width="2.2"/>`).join('');
+    s += parts.map(p => { const hz = p.w > p.h; return `<rect x="${p.x}" y="${p.y}" width="${p.w}" height="${p.h}" rx="2" fill="#62A2D2"/><rect x="${p.x + (hz ? 3 : 2)}" y="${p.y + (hz ? 2 : 3)}" width="${hz ? 4 : p.w - 4}" height="${hz ? p.h - 4 : 4}" fill="#fff" opacity=".9"/><rect x="${p.x + (hz ? p.w - 7 : 2)}" y="${p.y + (hz ? 2 : p.h - 7)}" width="${hz ? 4 : p.w - 4}" height="${hz ? p.h - 4 : 4}" fill="#fff" opacity=".9"/>`; }).join('');
+    for (let k = 0; k < 60; k++) s += `<circle cx="${(B.x + 30 + r() * (B.w - 60)).toFixed(0)}" cy="${(B.y + 24 + r() * (B.h - 48)).toFixed(0)}" r="2.8" fill="none" stroke="#8FC1FF" stroke-width="1.2"/>`;
+    s += `<rect x="${chip.x}" y="${chip.y}" width="${chip.w}" height="${chip.h}" rx="8" fill="#030A1F" stroke="#62A2D2"/><text x="400" y="236" text-anchor="middle" font-family="Geist Mono, monospace" font-size="12" fill="#EEF2FA">EMBEDDED</text><text x="400" y="254" text-anchor="middle" font-family="Geist Mono, monospace" font-size="12" fill="#62A2D2">L / C</text>`;
+  } else {
+    const ink = '#62A2D2';
+    s += `<rect x="${B.x}" y="${B.y}" width="${B.w}" height="${B.h}" rx="16" fill="rgba(3,10,31,.55)" stroke="${ink}" stroke-width="1.4"/>`;
+    s += tr.map(d => `<path d="${d}" fill="none" stroke="${ink}" stroke-width="1.1" opacity=".75"/>`).join('');
+    for (const [x, y, w, h] of conns) { s += `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="#030A1F" stroke="${ink}" stroke-width="1.2"/>`; for (let k = 7; k < Math.max(w, h) - 4; k += 9) s += w > h ? `<line x1="${x + k}" y1="${y + 6}" x2="${x + k}" y2="${y + h - 6}" stroke="${ink}" stroke-width=".8"/>` : `<line x1="${x + 6}" y1="${y + k}" x2="${x + w - 6}" y2="${y + k}" stroke="${ink}" stroke-width=".8"/>`; }
+    for (const [hx, hy] of [[56, 56], [744, 56], [56, 424], [744, 424]]) s += `<circle cx="${hx}" cy="${hy}" r="9" fill="none" stroke="${ink}" stroke-width="1.2"/>`;
+    s += `<rect x="${chip.x}" y="${chip.y}" width="${chip.w}" height="${chip.h}" rx="8" fill="#030A1F" stroke="${ink}" stroke-width="1.4"/><rect x="${chip.x + 24}" y="${chip.y + 24}" width="${chip.w - 48}" height="${chip.h - 48}" rx="4" fill="none" stroke="${ink}"/>`;
+    for (let k = chip.x + 10; k < chip.x + chip.w - 6; k += 10) s += `<line x1="${k}" y1="${chip.y - 7}" x2="${k}" y2="${chip.y}" stroke="${ink}"/><line x1="${k}" y1="${chip.y + chip.h}" x2="${k}" y2="${chip.y + chip.h + 7}" stroke="${ink}"/>`;
+  }
+  return s + '</svg>';
+}
+$$('[data-xray]').forEach(el => {
+  el.innerHTML = xrayBoard(false) + `<div class="in">${xrayBoard(true)}</div><div class="ring"></div><div class="lbl">X-RAY · 내장 L/C</div>`;
+  let idle = true; const t0 = performance.now();
+  const move = e => { idle = false; const b = el.getBoundingClientRect(); el.style.setProperty('--x', ((e.clientX - b.left) / b.width * 100).toFixed(1) + '%'); el.style.setProperty('--y', ((e.clientY - b.top) / b.height * 100).toFixed(1) + '%'); };
+  el.addEventListener('pointermove', move); el.addEventListener('pointerdown', move);
+  el.addEventListener('pointerleave', () => { idle = true; });
+  if (!reduced) (function wander(now) { if (idle) { const t = (now - t0) / 1000; el.style.setProperty('--x', (52 + Math.sin(t * .45) * 24).toFixed(1) + '%'); el.style.setProperty('--y', (50 + Math.sin(t * .7) * 16).toFixed(1) + '%'); } requestAnimationFrame(wander); })(t0);
+});
+
+/* ---------- I-3 layer explode (from v1, dark only) ---------- */
+const HW = 200, HH = 100, TH = 12, CX = 280;
+const iso = (u, v) => [(u - v) * HW / 2, (u + v) * HH / 2];
+const P = pts => pts.map(p => p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ');
+const up = (p, h) => [p[0], p[1] - h];
+const box = (u0, v0, u1, v1, h) => { const a = iso(u0, v0), b = iso(u1, v0), c = iso(u1, v1), d = iso(u0, v1); return { top: [up(a, h), up(b, h), up(c, h), up(d, h)], right: [up(b, h), up(c, h), c, b], left: [up(d, h), up(c, h), c, d], base: [a, b, c, d] }; };
+const COMPS = [[.66,-.3,'u'],[.8,-.08,'v'],[.72,.3,'u'],[.62,.78,'v'],[.3,.64,'u'],[-.3,.72,'u'],[-.12,.66,'v'],[-.74,.2,'v'],[-.8,-.22,'u'],[-.3,-.7,'v'],[-.62,-.72,'u'],[.26,-.66,'u'],[.62,-.78,'v'],[.86,.56,'u']];
+const ROUTES = [[[.22,-.12],[.5,-.12],[.5,-.52],[.92,-.52]],[[.22,0],[.92,0]],[[.22,.12],[.44,.12],[.44,.44],[.92,.44]],[[-.12,.22],[-.12,.5],[-.48,.5],[-.48,.92]],[[0,.22],[0,.92]],[[.12,.22],[.12,.4],[.2,.4],[.2,.92]],[[-.22,-.12],[-.56,-.12],[-.56,-.46],[-.92,-.46]],[[-.22,0],[-.92,0]],[[-.22,.12],[-.4,.12],[-.4,.38],[-.92,.38]],[[-.12,-.22],[-.12,-.52],[-.4,-.52],[-.4,-.92]],[[0,-.22],[0,-.92]],[[.12,-.22],[.12,-.4],[.42,-.4],[.42,-.92]]];
+function layer(n, label) {
+  const t = iso(-1,-1), r = iso(1,-1), b = iso(1,1), l = iso(-1,1), side = [l, b, r, [r[0], r[1] + TH], [b[0], b[1] + TH], [l[0], l[1] + TH]];
+  let g = ''; for (const k of [-.5, 0, .5]) g += `<line x1="${iso(k,-1)[0]}" y1="${iso(k,-1)[1]}" x2="${iso(k,1)[0]}" y2="${iso(k,1)[1]}"/><line x1="${iso(-1,k)[0]}" y1="${iso(-1,k)[1]}" x2="${iso(1,k)[0]}" y2="${iso(1,k)[1]}"/>`;
+  return `<g id="L${n}"><polygon points="${P(side)}" style="fill:var(--l${n}-side)"/><polygon points="${P([t, r, b, l])}" style="fill:var(--l${n}-face);stroke:var(--l${n}-stroke)"/><g style="stroke:var(--l${n}-stroke)" stroke-width=".7" opacity=".16">${g}</g><g class="inner"></g><g class="lbl" opacity="0"><line x1="${HW + 8}" y1="0" x2="${HW + 28}" y2="0" style="stroke:var(--muted)"/><text x="${HW + 34}" y="4" font-family="Geist Mono, monospace" font-size="12" style="fill:var(--fg)">${label}</text></g></g>`;
+}
+const comp = ([u, v, o], h) => { const du = o === 'u' ? .07 : .03, dv = o === 'u' ? .03 : .07, b = box(u - du, v - dv, u + du, v + dv, h); return `<g><polygon points="${P(b.right)}" style="fill:var(--comp-side)"/><polygon points="${P(b.left)}" style="fill:var(--comp-side2)"/><polygon points="${P(b.top)}" style="fill:var(--comp-top);stroke:var(--comp-edge)" stroke-width=".7"/></g>`; };
+function initEngine() {
+  const sec = $('#engine'), svg = $('#pcb'), steps = $$('.step', sec);
+  svg.innerHTML = `<defs><linearGradient id="chipTop" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#22325A"/><stop offset="1" stop-color="#0A1022"/></linearGradient><linearGradient id="dieG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8AB8FF"/><stop offset=".55" stop-color="#0048C8"/><stop offset="1" stop-color="#0A1A5A"/></linearGradient><radialGradient id="heatG"><stop offset="0" stop-color="#3A88E8" stop-opacity=".8"/><stop offset=".45" stop-color="#62A2D2" stop-opacity=".35"/><stop offset="1" stop-color="#62A2D2" stop-opacity="0"/></radialGradient><clipPath id="l1clip"><polygon points="${P([iso(-1,-1), iso(1,-1), iso(1,1), iso(-1,1)])}"/></clipPath></defs>${layer(3, 'L3 · Power Plane')}${layer(2, 'L2 · Embedded L/C')}${layer(1, 'L1 · AI SoC')}<g id="comps">${COMPS.map(c => comp(c, 6)).join('')}</g>`;
+  let hatch = ''; for (let k = -.8; k <= .81; k += .2) hatch += `<line x1="${iso(k,-.92)[0]}" y1="${iso(k,-.92)[1]}" x2="${iso(k,.92)[0]}" y2="${iso(k,.92)[1]}"/>`;
+  $('#L3 .inner').innerHTML = `<g style="stroke:var(--l3-stroke)" opacity=".35">${hatch}</g>`;
+  $('#L2 .inner').innerHTML = COMPS.map(([u, v, o]) => { const du = o === 'u' ? .07 : .03, dv = o === 'u' ? .03 : .07; return `<polygon class="ghost" opacity="0" points="${P(box(u - du, v - dv, u + du, v + dv, 0).base)}" style="fill:none;stroke:var(--accent)" stroke-dasharray="3 2"/>`; }).join('');
+  const k = .707, chip = box(-.22, -.22, .22, .22, 12), die = box(-.12, -.12, .12, .12, 12);
+  $('#L1 .inner').innerHTML = ROUTES.map(r => `<path class="trace" d="M${r.map(p => iso(p[0], p[1]).map(n => n.toFixed(1)).join(' ')).join(' L')}" style="stroke:var(--trace)" fill="none" stroke-width="1.5"/>`).join('')
+    + ROUTES.map(r => { const e = iso(...r[r.length - 1]); return `<ellipse class="pad" opacity="0" cx="${e[0]}" cy="${e[1]}" rx="4" ry="2" style="fill:var(--trace)"/>`; }).join('')
+    + `<g clip-path="url(#l1clip)"><ellipse id="heat" opacity="0" cx="0" cy="0" rx="${HW * .8}" ry="${HH * .8}" fill="url(#heatG)"/></g>`
+    + [.3, .52, .74].map(r => `<ellipse class="contour" opacity="0" cx="0" cy="0" rx="${r * HW * k}" ry="${r * HH * k}" fill="none" style="stroke:var(--accent)" stroke-dasharray="4 3"/>`).join('')
+    + `<polygon points="${P(chip.right)}" fill="#070C18"/><polygon points="${P(chip.left)}" fill="#0C1428"/><polygon points="${P(chip.top)}" fill="url(#chipTop)" style="stroke:var(--l1-stroke)"/><polygon points="${P(die.top)}" fill="url(#dieG)" stroke="#CFE2FF" stroke-opacity=".6" stroke-width=".8"/>`
+    + `<g id="badge" opacity="0" transform="translate(${-HW + 4} ${-HH - 44})"><rect width="190" height="50" rx="6" fill="#0A1A5A" style="stroke:var(--accent)"/><text x="14" y="19" font-family="Geist Mono, monospace" font-size="9.5" letter-spacing="1" style="fill:var(--muted)">MEASURED ≈ SIMULATED</text><text x="14" y="41" font-family="Geist Mono, monospace" font-size="20" style="fill:var(--fg)">98%</text><text x="66" y="40" font-family="Wanted Sans Variable, sans-serif" font-size="11.5" style="fill:var(--muted)">S-Parameter 정합</text></g>`;
+  const L1 = $('#L1'), L2 = $('#L2'), L3 = $('#L3'), comps = $('#comps'), traces = $$('#pcb .trace');
+  traces.forEach(p => { const l = p.getTotalLength(); p.style.strokeDasharray = l; p.style.strokeDashoffset = l; });
+  const sync = tl => { const t = tl.time(); steps.forEach((s, i) => s.classList.toggle('active', i === (t < 1.05 ? 0 : t < 2.05 ? 1 : 2)));
+    if (t < 1.5) { if (comps.previousElementSibling !== L1) L1.after(comps); } else if (comps.nextElementSibling !== L1) L1.before(comps); };
+  if (!window.gsap) { sec.classList.add('static'); return; }
+  gsap.registerPlugin(ScrollTrigger);
+  const build = () => {
+    gsap.set(L1, { x: CX, y: 280 }); gsap.set(L2, { x: CX, y: 296 }); gsap.set(L3, { x: CX, y: 312 }); gsap.set(comps, { x: CX, y: 280 }); gsap.set('#badge', { y: -HH - 36 });
+    const tl = gsap.timeline({ defaults: { ease: 'none' }, paused: true }); tl.eventCallback('onUpdate', () => sync(tl));
+    tl.to(traces, { strokeDashoffset: 0, duration: .7, stagger: .025 }, .05).to('#pcb .pad', { opacity: 1, duration: .15, stagger: .02 }, .55)
+      .to(L1, { y: 150, duration: .8, ease: 'power2.inOut' }, 1.1).to(L2, { y: 300, duration: .8, ease: 'power2.inOut' }, 1.1).to(L3, { y: 450, duration: .8, ease: 'power2.inOut' }, 1.1)
+      .to('#pcb .ghost', { opacity: 1, duration: .2 }, 1.2).to(comps, { y: 300, duration: .7, ease: 'power2.inOut' }, 1.25).to('#pcb .ghost', { opacity: 0, duration: .2 }, 1.85).to('#pcb .lbl', { opacity: 1, duration: .25, stagger: .06 }, 1.7)
+      .to('#heat', { opacity: 1, duration: .45 }, 2.1).fromTo('#pcb .contour', { opacity: 0, scale: .6, transformOrigin: '50% 50%' }, { opacity: .8, scale: 1, duration: .45, stagger: .08 }, 2.2)
+      .to('#badge', { opacity: 1, y: -HH - 44, duration: .3 }, 2.55).to({}, { duration: .25 }, 3);
+    return tl;
+  };
+  gsap.matchMedia().add({ pin: '(min-width: 960px) and (prefers-reduced-motion: no-preference)', flat: '(max-width: 959px), (prefers-reduced-motion: reduce)' }, ctx => {
+    const tl = build();
+    if (ctx.conditions.pin) { sec.classList.remove('static'); ScrollTrigger.create({ trigger: sec, start: 'top top', end: '+=260%', pin: true, scrub: .6, animation: tl }); sync(tl); }
+    else { sec.classList.add('static'); tl.progress(1); sync(tl); steps.forEach(s => s.classList.add('active')); }
+  });
+}
+
+/* ---------- compare boards (v1 I-4) ---------- */
+function board(mode) {
+  const full = { x: 90, y: 48, w: 620, h: 384 }, b = mode === 'smt' ? full : { x: 168, y: 96, w: 464, h: 288 }, cx = 400, cy = 240, chip = { x: cx - 58, y: cy - 48, w: 116, h: 96 };
+  let s = `<defs><linearGradient id="die-${mode}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8AB8FF"/><stop offset=".55" stop-color="#0048C8"/><stop offset="1" stop-color="#0A1A5A"/></linearGradient></defs><rect width="800" height="480" fill="#F2F4F7"/>`;
+  if (mode === 'emb') s += `<rect x="${full.x}" y="${full.y}" width="${full.w}" height="${full.h}" fill="none" stroke="#9AA6B8" stroke-width="1.5" stroke-dasharray="7 6"/><text x="${full.x + full.w - 14}" y="${full.y + full.h - 14}" text-anchor="end" font-family="Geist Mono, monospace" font-size="13" fill="#6E7B94">기존 기판 크기</text>`;
+  s += `<rect x="${b.x}" y="${b.y}" width="${b.w}" height="${b.h}" rx="14" fill="#0A1A5A"/>`;
+  const tr = []; for (let i = -2; i <= 2; i++) { const oy = cy + i * 16, ox = cx + i * 20, a = Math.abs(i); tr.push(`M${chip.x} ${oy} H${chip.x - 26 - a * 8} L${chip.x - 46 - a * 8} ${oy + i * 14} H${b.x + 30}`, `M${chip.x + chip.w} ${oy} H${chip.x + chip.w + 26 + a * 8} L${chip.x + chip.w + 46 + a * 8} ${oy + i * 14} H${b.x + b.w - 30}`, `M${ox} ${chip.y} V${chip.y - 20 - a * 6} L${ox + i * 12} ${chip.y - 36 - a * 6} V${b.y + 30}`, `M${ox} ${chip.y + chip.h} V${chip.y + chip.h + 20 + a * 6} L${ox + i * 12} ${chip.y + chip.h + 36 + a * 6} V${b.y + b.h - 30}`); }
+  s += `<g fill="none" stroke="#3A88E8" stroke-width="2">${tr.map(d => `<path d="${d}"/>`).join('')}</g>`;
+  const r = rng(11), pl = [], hit = a => pl.some(p => a.x < p.x + p.w + 8 && a.x + a.w + 8 > p.x && a.y < p.y + p.h + 8 && a.y + a.h + 8 > p.y) || (a.x < chip.x + chip.w + 18 && a.x + a.w > chip.x - 18 && a.y < chip.y + chip.h + 18 && a.y + a.h > chip.y - 18);
+  for (let t = 0; pl.length < 54 && t < 3000; t++) { const rot = r() < .5; let w = 24, h = 10; if (rot) [w, h] = [h, w]; const a = { x: full.x + 34 + r() * (full.w - 68 - w), y: full.y + 34 + r() * (full.h - 68 - h), w, h, rot }; if (!hit(a)) pl.push(a); }
+  if (mode === 'smt') pl.forEach(a => { s += `<rect x="${a.x}" y="${a.y}" width="${a.w}" height="${a.h}" rx="1.5" fill="#030A1F"/>` + (a.rot ? `<rect x="${a.x}" y="${a.y}" width="${a.w}" height="5" fill="#D6DCE6"/><rect x="${a.x}" y="${a.y + a.h - 5}" width="${a.w}" height="5" fill="#D6DCE6"/>` : `<rect x="${a.x}" y="${a.y}" width="5" height="${a.h}" fill="#D6DCE6"/><rect x="${a.x + a.w - 5}" y="${a.y}" width="5" height="${a.h}" fill="#D6DCE6"/>`); });
+  else { const sx = b.w / full.w, sy = b.h / full.h; pl.forEach(a => s += `<rect x="${(b.x + (a.x - full.x) * sx).toFixed(1)}" y="${(b.y + (a.y - full.y) * sy).toFixed(1)}" width="${(a.w * .8).toFixed(1)}" height="${(a.h * .8).toFixed(1)}" fill="none" stroke="#62A2D2" stroke-opacity=".55" stroke-dasharray="2 2"/>`); }
+  return s + `<rect x="${chip.x}" y="${chip.y}" width="${chip.w}" height="${chip.h}" rx="6" fill="#030A1F" stroke="#62A2D2" stroke-width="1.5"/><rect x="${chip.x + 22}" y="${chip.y + 18}" width="${chip.w - 44}" height="${chip.h - 36}" rx="4" fill="url(#die-${mode})"/>`;
+}
+
+/* ---------- 05 tech tabs (IR 5 core technologies) ---------- */
+const TECH = [
+  { id: 'emi', n: '01', short: 'EMI 필터', kind: 'HW', title: '초박형·초저손실 자성부품과 EMI 필터',
+    lead: '차폐재로 덮지 않고 소자 구조로 해결합니다. L·C를 정밀하게 모델링해 노이즈를 에너지로 되돌리고, 원가와 크기를 함께 줄입니다.',
+    fig: 'assets/ir/emi-filter-layout.png', cap: 'FIG.01 — EMI 필터 레이아웃 · 자사 실증',
+    specs: [['47%↓', '원가'], ['30%↓', '크기'], ['92%', '전력 변환 효율'], ['800V', '고전압 대응(Z1·Z2)']],
+    pap: ['차폐재가 늘수록 원가와 무게가 늘어난다', 'L·C 정밀 모델링, 구조 자체로 노이즈 해결', '75″ OLED TV SMPS 양산 테스트 · 8,954원 → 4,834원', 'Z1·Z2 — 800V EMI 차폐재 없이 · GEN 3.0 — 내장 전력모듈'] },
+  { id: 'embed', n: '02', short: 'Embedded L/C', kind: 'HW', title: 'Embedded L/C 복합 패키지',
+    lead: 'EMC 부품을 기판 안에 집적하고 센서와 융복합합니다. 수동 소자 수가 곧 면적의 한계였던 문제를 구조로 풉니다.',
+    fig: 'assets/ir/embedded-stack-section.png', cap: 'FIG.02 — 기판 내장 적층 단면 · 자사 실증', compare: true,
+    specs: [['70%', '집적률'], ['98%', '자동화율'], ['1회', '시제작'], ['20GHz', '정합 대역']],
+    pap: ['수동 소자 수 = 면적의 한계', '기판 내부 집적 + 센서 융복합', '20GHz 정합 · 시제작 1회', 'P1 — 외장 Wi-Fi/BT를 기판에 내장 · GEN 3.0 — 센서·통신 집적'] },
+  { id: 'tactile', n: '03', short: 'LC 촉각센서', kind: 'HW', title: 'LC 공진 촉각센서(로봇 피부)',
+    lead: '차폐 구조가 곧 센서입니다. 막으면 느끼지 못하고 배선이 늘어나는 문제를, 다중 공진 구조로 배선 한 채널에 담습니다.',
+    fig: 'assets/ir/tactile-array-3d.png', cap: 'FIG.03 — 촉각 어레이 구조 · 자사 실증',
+    specs: [['8→1ch', '배선'], ['3×3', '어레이'], ['2%↓', '이력 오차'], ['9건', '특허 출원 추진']],
+    pap: ['막으면 못 느끼고, 배선은 늘어난다', '차폐 = 센서, FDM 다중 공진', '3×3 어레이 · 배선 8→1ch', 'R1 — 촉각 + 무선 + Edge를 한 모듈로'] },
+  { id: 'aidesign', n: '04', short: 'AI 설계 자동화', kind: 'SW', title: 'AI 설계 자동화·전자파 측정 표준',
+    lead: '설계 단계에서 EMC를 먼저 검증합니다. 20년 산업 데이터와 AI, Full 3D 시뮬레이션으로 시제품 없이 설계를 확정합니다.',
+    fig: 'assets/ir/sparam-measured-vs-sim.png', cap: 'FIG.04 — 측정 vs 시뮬레이션 S-Parameter 정합 · 자사 실증',
+    specs: [['98%', '측정-시뮬 정합'], ['2주', '개발 기간(종래 3개월)'], ['90%↓', 'One-Spin 원가'], ['1회', '시제작(종래 30~50회)']],
+    pap: ['출시 후에야 EMC 문제를 안다', '20년 DATA + AI + Full 3D 시뮬레이션', '정합 98% · 3개월 → 2주', '전 제품 — 2주 사이클 · 시제작 1회'] },
+  { id: 'edge', n: '05', short: 'sLLM · Edge', kind: 'SW', title: '경량 AI(sLLM)·초소형 Edge Computer',
+    lead: '센서 전처리부터 추론까지 기기 안에서 처리합니다. 즉시 응답하고, 데이터가 밖으로 나가지 않으며, 통신이 끊겨도 동작합니다.',
+    fig: 'assets/ir/edge-board.png', cap: 'FIG.05 — 초소형 Edge 보드 · 자사 실증',
+    specs: [['0.1s', 'TTFT 목표'], ['On-device', '추론 위치'], ['sLLM', '경량 모델 1→2세대'], ['Z·P·R', '전 제품 탑재']],
+    pap: ['추론 지연 · 플랫폼 부재', 'sLLM + 센서단 토크나이징·압축', '온디바이스 추론 · TTFT 0.1초 목표', 'Platform 1→2 · R1 — 촉각 전처리 + 무선 제어'] },
+];
+function initTabs() {
+  const list = $('.tabs'), panel = $('#tech-panel');
+  list.innerHTML = TECH.map((t, i) => `<button class="tab" role="tab" id="tab-${t.id}" aria-controls="tech-panel" aria-selected="${i === 1}" tabindex="${i === 1 ? 0 : -1}" data-i="${i}"><span>${t.n}</span>${t.short}<span class="tag${t.kind}">${t.kind}</span></button>`).join('');
+  const show = i => {
+    const t = TECH[i];
+    $$('.tab', list).forEach((b, k) => { b.setAttribute('aria-selected', k === i); b.tabIndex = k === i ? 0 : -1; });
+    panel.setAttribute('aria-labelledby', `tab-${t.id}`);
+    panel.innerHTML = `<div class="panel-top">
+      <div class="fig">${t.compare ? `<div class="fig-tools"><button aria-pressed="true" data-v="img">실증 단면</button><button aria-pressed="false" data-v="cmp">표면 실장 vs 기판 내장</button></div>` : ''}
+        <div class="media"><img src="${t.fig}" alt="${t.cap.split(' · ')[0].replace(/^FIG\.\d+ — /, '')}"></div><p class="cap t-label">${t.cap}</p></div>
+      <div class="body"><p class="no t-label">${t.n} / 05 · <span class="tag${t.kind}">${t.kind}</span></p><h3 class="t-h3">${t.title}</h3><p class="t-18">${t.lead}</p>
+        <div class="specs">${t.specs.map(([v, k]) => `<div><div class="v">${v}</div><div class="k t-label">${k}</div></div>`).join('')}</div></div></div>
+      <div class="pap">${['PROBLEM', 'APPROACH', 'PROOF', 'FOR PRODUCTS'].map((h, k) => `<div><b>${h}</b><p class="t-18">${t.pap[k]}</p></div>`).join('')}</div>`;
+    if (t.compare) {
+      const media = $('.media', panel), cap = $('.cap', panel);
+      $$('.fig-tools button', panel).forEach(bt => bt.addEventListener('click', () => {
+        $$('.fig-tools button', panel).forEach(x => x.setAttribute('aria-pressed', x === bt));
+        if (bt.dataset.v === 'cmp') {
+          media.innerHTML = `<div class="compare"><svg viewBox="0 0 800 480">${board('smt')}</svg><svg class="after" viewBox="0 0 800 480">${board('emb')}</svg><span class="cl">종래 · 표면 실장</span><span class="cr">ZEPHYROS · 기판 내장</span><div class="handle"><div class="knob">‹ ›</div></div><input type="range" min="0" max="100" value="50" aria-label="표면 실장과 기판 내장 비교"></div>`;
+          const c = $('.compare', media); $('input', c).addEventListener('input', e => c.style.setProperty('--pos', e.target.value + '%'));
+          cap.textContent = 'FIG.02b — 표면 실장 vs 기판 내장 · 개념도(실제 제품 사진 아님)';
+        } else { media.innerHTML = `<img src="${t.fig}" alt="기판 내장 적층 단면">`; cap.textContent = t.cap; }
+      }));
+    }
+  };
+  list.addEventListener('click', e => { const b = e.target.closest('.tab'); if (b) show(+b.dataset.i); });
+  list.addEventListener('keydown', e => { if (!['ArrowLeft', 'ArrowRight'].includes(e.key)) return; const cur = $$('.tab', list).findIndex(b => b.getAttribute('aria-selected') === 'true'); const nx = (cur + (e.key === 'ArrowRight' ? 1 : TECH.length - 1)) % TECH.length; show(nx); $$('.tab', list)[nx].focus(); });
+  show(1);
+}
+
+/* ---------- roadmap highlight ---------- */
+function initRoadmap() {
+  const lines = $$('.line'), rows = $$('.tl-row[data-line]'), yrs = $$('.tl-row.hd [data-y]');
+  const hl = L => { lines.forEach(l => l.classList.toggle('hl', l.dataset.line === L)); };
+  lines.forEach(l => { l.addEventListener('mouseenter', () => hl(l.dataset.line)); l.addEventListener('mouseleave', () => hl(null)); });
+  rows.forEach(r => { r.addEventListener('mouseenter', () => hl(r.dataset.line)); r.addEventListener('mouseleave', () => hl(null)); });
+  const map = { 2026: ['Z'], 2027: ['P'], 2028: ['Z', 'R'], 2029: ['P', 'R'] };
+  yrs.forEach(y => { y.addEventListener('mouseenter', () => { y.classList.add('on'); lines.forEach(l => l.classList.toggle('hl', map[y.dataset.y].includes(l.dataset.line))); }); y.addEventListener('mouseleave', () => { y.classList.remove('on'); hl(null); }); });
+  // small line-art glyph per platform card
+  const glyph = { Z: '<rect x="10" y="30" width="180" height="70" rx="10"/><rect x="40" y="46" width="60" height="38" rx="4"/><path d="M110 56 H170 M110 66 H160 M110 76 H170"/>', P: '<rect x="50" y="30" width="100" height="70" rx="10"/><circle cx="100" cy="65" r="14"/><path d="M100 20 a45 45 0 0 1 45 10 M100 10 a60 60 0 0 1 60 14"/>', R: '<rect x="60" y="20" width="60" height="90" rx="26"/><rect x="74" y="44" width="32" height="36" rx="4"/><path d="M120 60 H170 M120 76 H160"/>' };
+  lines.forEach(l => { if (!$('img', l)) $('.vis', l).insertAdjacentHTML('beforeend', `<svg viewBox="0 0 200 120" fill="none" stroke="#62A2D2" stroke-width="1.4">${glyph[l.dataset.line]}</svg>`); });
+}
+
+/* ---------- count-up, reveal, One-Spin bars ---------- */
+const io = new IntersectionObserver(es => es.forEach(e => { if (!e.isIntersecting) return; e.target.classList.add('in'); io.unobserve(e.target); }), { rootMargin: '0px 0px -10% 0px' });
+$$('.rv, .onespin').forEach(el => io.observe(el));
+const cio = new IntersectionObserver(es => es.forEach(e => { if (!e.isIntersecting) return; cio.unobserve(e.target); const el = e.target, to = +el.dataset.count, t0 = performance.now(); const f = n => { const p = Math.min(1, (n - t0) / 1200); el.textContent = Math.round(to * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(f); }; requestAnimationFrame(f); }), { threshold: .6 });
+if (!reduced) $$('[data-count]').forEach(el => { el.textContent = '0'; cio.observe(el); });
+
+initTabs(); initRoadmap(); initEngine();
+addEventListener('load', () => window.ScrollTrigger && ScrollTrigger.refresh());
+})();
+</script>
+</body>
+</html>

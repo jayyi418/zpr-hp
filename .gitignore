@@ -1,0 +1,16 @@
+# build output
+dist/
+.vercel/
+
+# local tooling and scratch output
+.playwright-mcp/
+.superpowers/
+.claude/settings.local.json
+
+# mockup rollback copies (git history replaces them from now on)
+mockups/v2/home-before-*.html
+
+# OS
+Thumbs.db
+desktop.ini
+.DS_Store
