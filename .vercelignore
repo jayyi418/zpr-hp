@@ -1,0 +1,14 @@
+# Upload only what the v2 build needs (scripts/build-site.mjs reads mockups/v2/home.html and its assets)
+.playwright-mcp
+.superpowers
+.claude
+docs
+README.md
+mockups/home.html
+mockups/font-headline.html
+mockups/images
+mockups/v2/home-*.html
+mockups/v2/headlines.html
+mockups/v2/directions.html
+mockups/v2/assets/gen/PROMPTS.md
+dist
