@@ -61,7 +61,17 @@
   - 배포: Vercel 프로젝트 `zpr-hp`, 운영 주소 https://zpr-hp.vercel.app
   - **v2 시안만 배포한다.** `scripts/build-site.mjs`가 `mockups/v2/home.html`을 `dist/index.html`로 복사하고, 페이지가 쓰는 이미지만 함께 복사한다. `.vercelignore`는 그 밖의 파일을 업로드에서 뺀다.
   - 시안 단계이므로 `X-Robots-Tag: noindex, nofollow`를 붙인다(`vercel.json`). 정식 공개 때 지운다.
-  - 호스팅이 Netlify에서 Vercel로 바뀌었다. 그래서 상담 폼은 Netlify Forms 대신 다른 수신 방식이 필요하다(예: Vercel 함수 + 메일 발송).
+  - 호스팅이 Netlify에서 Vercel로 바뀌어서 Netlify Forms를 쓰지 않는다.
+- **2026-10-02: 시안 표시 제거, 상담 폼 메일 전송.**
+  - 좌하단 "시안 v2 · 방향 C · 카피 초안" 칩을 지웠다.
+  - 상담 폼은 FormSubmit AJAX(`https://formsubmit.co/ajax/sdh@zpr.co.kr`)로 sdh@zpr.co.kr에 보낸다.
+    - 메일 제목: `[홈페이지 문의] 회사 · 이름`
+    - 본문: 표 형식(이름, 회사·기관, 이메일, 연락처, 관심 분야, 문의 내용, 페이지 언어)
+    - 답장 주소는 문의자 이메일이다.
+    - 숨은 필드(`_honey`)로 스팸을 거른다.
+    - 실패하면 오류 문구와 메일 주소를 보여준다.
+  - 첫 제출 때 FormSubmit이 sdh@zpr.co.kr로 보내는 활성화 메일을 한 번 눌러야 한다.
+  - 개인정보 동의 문구에 FormSubmit을 거쳐 전달된다는 내용을 넣었다. 정식 공개 전에 개인정보처리방침의 처리 위탁·국외 이전 항목을 확인한다.
   - zpr.co.kr 연결은 아직 하지 않았다. 연결 시 카페24 DNS에서 웹 레코드만 Vercel로 바꾸고, 메일(MX·SPF)은 그대로 둔다.
   - 로고는 현재 zpr.co.kr(기존 워드프레스)에서 불러온다. 도메인을 옮기기 전에 저장소로 가져와야 한다.
 - 관계: v1 설계(`2026-09-23-zpr-homepage-renewal-design.md`)를 **대체하지 않고 병행**한다. v1 시안(`mockups/home.html`)은 그대로 둔다.

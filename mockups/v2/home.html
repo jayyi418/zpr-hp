@@ -357,6 +357,9 @@ html:has(dialog.cf[open]) { overflow: hidden; }
 .cf-foot .alt { font-size: 14px; color: var(--muted-d); }
 .cf-foot .alt a { color: #fff; text-decoration: underline; text-underline-offset: 4px; }
 .cf-foot .btn { cursor: pointer; }
+.cf-foot .btn[disabled] { opacity: .6; cursor: progress; }
+.cf-err { margin: 20px 0 0; padding: 12px 14px; border: 1px solid rgba(255,138,138,.5); color: #FFB4B4; font-size: 14.5px; }
+.cf-err a { color: #fff; text-decoration: underline; text-underline-offset: 4px; }
 .cf-done h2 { margin-top: 12px; }
 .cf-done .btn { margin-top: 40px; cursor: pointer; }
 @media (max-width: 767px) {
@@ -403,7 +406,6 @@ html:has(dialog.cf[open]) { overflow: hidden; }
 .js .rv { opacity: 0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease; }
 .js .rv.in { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) { .js .rv { opacity: 1; transform: none; transition: none; } .bar .fill { transition: none; } }
-.mock-badge { position: fixed; left: 14px; bottom: 14px; z-index: 60; font: 400 11px var(--mono); padding: 7px 12px; border-radius: 999px; background: rgba(255,181,71,.95); color: #3A2300; }
 </style>
 </head>
 <body>
@@ -630,10 +632,9 @@ html:has(dialog.cf[open]) { overflow: hidden; }
 </footer>
 
 <dialog class="cf" id="cf" aria-labelledby="cf-title">
-  <!-- production: Netlify Forms (data-netlify + honeypot). In this mockup, submit only shows the thank-you state. -->
-  <form class="cf-in" name="consult" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-    <input type="hidden" name="form-name" value="consult">
-    <p hidden><label>Leave empty <input name="bot-field"></label></p>
+  <!-- submissions are relayed to sdh@zpr.co.kr by FormSubmit (see CONTACT_ENDPOINT in the script) -->
+  <form class="cf-in" name="consult">
+    <p hidden><label>Leave empty <input name="_honey" tabindex="-1" autocomplete="off"></label></p>
     <div class="cf-head">
       <div><p class="t-label muted-d">CONTACT</p><h2 id="cf-title" data-k="cf.h">기술 상담 요청</h2><p class="lead" data-k="cf.lead">제품과 과제를 알려주시면 검토 후 회신드립니다.</p></div>
       <button type="button" class="cf-x" data-close aria-label="닫기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
@@ -656,8 +657,9 @@ html:has(dialog.cf[open]) { overflow: hidden; }
         </div>
       </fieldset>
       <label class="cf-f full"><span><b data-k="cf.msg">문의 내용</b> <em>*</em></span><textarea name="message" required placeholder="제품 사양, 해결하려는 과제, 일정 등을 적어 주세요." data-k-ph="cf.msgph"></textarea></label>
-      <label class="agree"><input type="checkbox" name="consent" required><span><span data-k="cf.agree">[필수] 개인정보 수집·이용에 동의합니다.</span><small data-k="cf.agreed">수집 항목: 이름, 회사·기관, 이메일, 연락처 · 목적: 문의 확인과 회신 · 보유 기간: 문의 처리 후 1년. 동의하지 않으면 문의를 접수할 수 없습니다.</small></span></label>
+      <label class="agree"><input type="checkbox" name="consent" required><span><span data-k="cf.agree">[필수] 개인정보 수집·이용에 동의합니다.</span><small data-k="cf.agreed">수집 항목: 이름, 회사·기관, 이메일, 연락처 · 목적: 문의 확인과 회신 · 보유 기간: 문의 처리 후 1년. 문의 내용은 메일 전송 서비스(FormSubmit)를 거쳐 sdh@zpr.co.kr로 전달됩니다. 동의하지 않으면 문의를 접수할 수 없습니다.</small></span></label>
     </div>
+    <p class="cf-err" role="alert" hidden><span data-k="cf.err">전송하지 못했습니다. 잠시 후 다시 시도하시거나 이메일로 보내 주세요.</span> <a href="mailto:sdh@zpr.co.kr">sdh@zpr.co.kr</a></p>
     <div class="cf-foot">
       <p class="alt"><span data-k="cf.alt">이메일로 보내셔도 됩니다</span> · <a href="mailto:sdh@zpr.co.kr">sdh@zpr.co.kr</a></p>
       <button class="btn btn-primary" type="submit"><span data-k="cf.send">보내기</span><svg><use href="#i-arrow"/></svg></button>
@@ -672,7 +674,6 @@ html:has(dialog.cf[open]) { overflow: hidden; }
   </div>
 </dialog>
 
-<div class="mock-badge" data-k="badge">시안 v2 · 방향 C(SPLIT) · 카피 초안</div>
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
@@ -739,9 +740,9 @@ const EN = {
   'cf.topic': 'Areas of interest (optional)', 'cf.t1': 'EMI filters · magnetics', 'cf.t3': 'LC tactile sensor', 'cf.t4': 'AI design automation', 'cf.t5': 'Lightweight AI · edge', 'cf.t6': 'Z·P·R platforms', 'cf.t7': 'Other',
   'cf.msg': 'Message', 'cf.msgph': 'Product specs, the problem to solve, timeline…',
   'cf.agree': '[Required] I agree to the collection and use of my personal information.',
-  'cf.agreed': 'Collected: name, company, email, phone · Purpose: reviewing and replying to your inquiry · Kept for 1 year after the inquiry is closed. We cannot accept the inquiry without consent.',
+  'cf.agreed': 'Collected: name, company, email, phone · Purpose: reviewing and replying to your inquiry · Kept for 1 year after the inquiry is closed. Your message is relayed to sdh@zpr.co.kr by an email delivery service (FormSubmit). We cannot accept the inquiry without consent.',
+  'cf.err': "We couldn't send your message. Please try again shortly or email us at", 'cf.sending': 'Sending…',
   'cf.alt': 'Or email us', 'cf.send': 'Send', 'cf.doneh': 'Thank you — we received your inquiry', 'cf.donep': "We'll review it and reply to the email you entered.", 'cf.close': 'Close',
-  'badge': 'Mockup v2 · Direction C (SPLIT) · draft copy',
 };
 if (LANG === 'en') {
   $$('[data-k]').forEach(el => { const v = EN[el.dataset.k]; if (v !== undefined) el.innerHTML = v; });
@@ -1035,11 +1036,34 @@ const cf = $('#cf');
 if (cf && cf.showModal) {
   const form = $('form', cf), done = $('.cf-done', cf);
   $$('[data-close]', cf).forEach(b => { if (b.classList.contains('cf-x')) b.setAttribute('aria-label', L({ ko: '닫기', en: 'Close' })); b.addEventListener('click', () => cf.close()); });
-  $$('[data-open="cf"]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); form.hidden = false; done.hidden = true; cf.showModal(); }));
+  $$('[data-open="cf"]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); form.hidden = false; done.hidden = true; $('.cf-err', form).hidden = true; cf.showModal(); }));
   cf.addEventListener('click', e => { if (e.target === cf) cf.close(); });   // click on the backdrop
-  form.addEventListener('submit', e => {
-    e.preventDefault();   // mockup only — production posts to Netlify Forms
-    form.hidden = true; done.hidden = false; form.reset(); cf.scrollTop = 0; $('.btn', done).focus();
+  /* submissions go to sdh@zpr.co.kr via FormSubmit's AJAX endpoint (no server needed).
+     The very first submission makes FormSubmit email an "Activate Form" link to that address; click it once. */
+  const CONTACT_ENDPOINT = 'https://formsubmit.co/ajax/sdh@zpr.co.kr';
+  const err = $('.cf-err', form), send = $('button[type=submit]', form), sendLabel = $('span', send), sendText = sendLabel.innerHTML;
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    if (!form.reportValidity()) return;
+    const fd = new FormData(form);
+    if (fd.get('_honey')) return;   // bot filled the hidden field
+    const topics = $$('input[name="topic"]:checked', form).map(i => i.nextElementSibling.textContent.trim());
+    const payload = {
+      _subject: `[홈페이지 문의] ${fd.get('company')} · ${fd.get('name')}`,
+      _template: 'table', _captcha: 'false', _replyto: fd.get('email'),
+      '이름': fd.get('name'), '회사·기관': fd.get('company'), '이메일': fd.get('email'), '연락처': fd.get('phone') || '-',
+      '관심 분야': topics.join(', ') || '-', '문의 내용': fd.get('message'), '페이지 언어': LANG.toUpperCase(),
+    };
+    err.hidden = true; send.disabled = true; sendLabel.textContent = L({ ko: '보내는 중…', en: EN['cf.sending'] });
+    try {
+      const r = await fetch(CONTACT_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(payload) });
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok || String(j.success) !== 'true') throw new Error(j.message || `HTTP ${r.status}`);
+      form.hidden = true; done.hidden = false; form.reset(); cf.scrollTop = 0; $('.btn', done).focus();
+    } catch (x) {
+      console.warn('contact form:', x.message);
+      err.hidden = false; err.scrollIntoView({ block: 'nearest' });
+    } finally { send.disabled = false; sendLabel.innerHTML = sendText; }
   });
 }
 
