@@ -1,14 +1,12 @@
-# build output
-dist/
-.vercel/
-
-# local tooling and scratch output
-.playwright-mcp/
-.superpowers/
-.claude/settings.local.json
-
-# mockup rollback copies (git history replaces them from now on)
-mockups/v2/home-before-*.html
+# working material kept locally (design mockups, specs, tooling) — not part of the website
+/mockups/
+/docs/
+/scripts/
+/.claude/
+/.playwright-mcp/
+/.superpowers/
+/.vercel/
+/dist/
 
 # OS
 Thumbs.db

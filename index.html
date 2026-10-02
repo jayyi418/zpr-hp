@@ -3,10 +3,26 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ZEPHYROS 홈 시안 v2</title>
-<meta property="og:image" content="assets/gen/og.png">
+<title>ZEPHYROS | 제피로스 일렉트로닉스</title>
+<meta name="description" content="제피로스 일렉트로닉스 — AI와 로보틱스를 위한 하드웨어 &amp; 소프트웨어. EMI 필터·자성부품, Embedded L/C, LC 공진 촉각센서, AI 설계 자동화, 경량 AI·Edge.">
+<link rel="canonical" href="https://zpr.co.kr/">
+<link rel="alternate" hreflang="ko" href="https://zpr.co.kr/">
+<link rel="alternate" hreflang="en" href="https://zpr.co.kr/?lang=en">
+<link rel="alternate" hreflang="x-default" href="https://zpr.co.kr/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ZEPHYROS">
+<meta property="og:url" content="https://zpr.co.kr/">
+<meta property="og:title" content="ZEPHYROS | 제피로스 일렉트로닉스">
+<meta property="og:description" content="AI와 로보틱스를 위한 하드웨어 &amp; 소프트웨어">
+<meta property="og:image" content="https://zpr.co.kr/assets/images/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#030A1F">
+<link rel="icon" type="image/png" href="assets/logo/favicon.png">
+<link rel="apple-touch-icon" href="assets/logo/apple-touch-icon.png">
 <script>
-  // Language: ?lang=en | ?lang=ko (stands in for the real site's /en/ routes); remembered per viewer.
+  // Language: ?lang=en | ?lang=ko; the choice is remembered per viewer.
   (function () {
     var q = new URLSearchParams(location.search).get('lang'), s = null;
     try { s = localStorage.getItem('zpr-lang'); } catch (e) {}
@@ -90,7 +106,7 @@ html[lang="en"] .chip { font-weight: 400; }
 .hdr { position: absolute; inset: 0 0 auto 0; height: 54px; z-index: 20; }
 .hdr .container { height: 100%; display: flex; align-items: center; gap: 40px; }
 .logo { display: flex; align-items: center; gap: 9px; margin-right: auto; font-weight: 700; font-size: 17px; letter-spacing: .01em; color: #fff; }
-.logo .mark { display: block; height: 24px; width: calc(24px * .85); overflow: hidden; flex: none; }
+.logo .mark { display: block; height: 24px; flex: none; }
 .logo .mark img { height: 100%; width: auto; max-width: none; }
 .hdr nav ul { display: flex; gap: 32px; font-size: 16px; font-weight: 500; }
 .hdr nav a { opacity: .9; } .hdr nav a:hover { opacity: 1; color: var(--sky); }
@@ -135,7 +151,7 @@ html[lang="en"] .chip { font-weight: 400; }
    03 Statement
    ========================================================= */
 .statement { text-align: center; position: relative; overflow: hidden; isolation: isolate; }
-/* generated imagery drops in here when present (assets/gen/*.png); missing files remove themselves */
+/* section background imagery (assets/images); a missing file removes itself */
 .statement .gen-bg { opacity: .16 !important; }
 .statement .flip { position: relative; background: linear-gradient(180deg, rgba(3,10,31,0), rgba(3,10,31,.72) 40%); }
 .gen-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; opacity: .5;
@@ -444,7 +460,7 @@ html:has(dialog.cf[open]) { overflow: hidden; }
 
 <!-- ================= 03 Statement ================= -->
 <section class="statement dark sec">
-  <img class="gen-bg" src="assets/gen/statement.png" alt="" onerror="this.remove()">
+  <img class="gen-bg" src="assets/images/statement.webp" alt="" onerror="this.remove()">
   <div class="container">
     <div class="inner rv">
       <p class="t-label muted-d">01 / POSITIONING</p>
@@ -529,19 +545,19 @@ html:has(dialog.cf[open]) { overflow: hidden; }
     </div>
     <div class="lines">
       <article class="line rv" data-line="Z">
-        <div class="vis"><span class="L">Z</span><img src="assets/gen/zpr-z.png" alt="" onerror="this.remove()"></div>
+        <div class="vis"><span class="L">Z</span><img src="assets/images/zpr-z.webp" alt="" onerror="this.remove()"></div>
         <div class="txt"><p class="name" data-k="zp.zn">Zero Impedance · 파워</p><h3 data-k="zp.zh">차량용 AI Edge Computer</h3>
           <ul class="gens"><li><span>Z1 · GEN1.0</span><span class="y">2026</span></li><li><span>Z2 · GEN2.0</span><span class="y">2028</span></li></ul>
           <div class="techs"><span data-k="zp.t1">① EMI·자성부품</span><span>⑤ sLLM·Edge</span></div></div>
       </article>
       <article class="line rv" data-line="P">
-        <div class="vis"><span class="L">P</span><img src="assets/gen/zpr-p.png" alt="" onerror="this.remove()"></div>
+        <div class="vis"><span class="L">P</span><img src="assets/images/zpr-p.webp" alt="" onerror="this.remove()"></div>
         <div class="txt"><p class="name" data-k="zp.pn">Pi · 통신</p><h3 data-k="zp.ph">가정용 AI Edge Computer</h3>
           <ul class="gens"><li><span>P1 · GEN1.0</span><span class="y">2027</span></li><li><span data-k="zp.pg">GEN3.0 · 가정/차량 공용</span><span class="y">2029</span></li></ul>
           <div class="techs"><span>② Embedded L/C</span><span>⑤ sLLM·Edge</span></div></div>
       </article>
       <article class="line rv" data-line="R">
-        <div class="vis"><span class="L">R</span><img src="assets/gen/zpr-r.png" alt="" onerror="this.remove()"></div>
+        <div class="vis"><span class="L">R</span><img src="assets/images/zpr-r.webp" alt="" onerror="this.remove()"></div>
         <div class="txt"><p class="name" data-k="zp.rn">ROS · 로봇</p><h3 data-k="zp.rh">로봇용 초소형 Edge Computer</h3>
           <ul class="gens"><li><span data-k="zp.rg">R1 · 촉각 + 무선 + Edge</span><span class="y">2028–29</span></li></ul>
           <div class="techs"><span data-k="zp.t3">③ LC 촉각센서</span><span>⑤ sLLM·Edge</span></div></div>
@@ -566,7 +582,7 @@ html:has(dialog.cf[open]) { overflow: hidden; }
     </div>
     <div class="grid rv">
       <div class="who">
-        <div class="photo"><img src="assets/ir/ceo.png" alt="" data-k-alt="co.name"></div>
+        <div class="photo"><img src="assets/images/ceo.webp" alt="" data-k-alt="co.name"></div>
         <h3 data-k="co.name">김유선</h3>
         <p class="role" data-k="co.role">대표이사 · 공학박사(전자컴퓨터공학)</p>
       </div>
@@ -596,7 +612,7 @@ html:has(dialog.cf[open]) { overflow: hidden; }
 
 <!-- ================= 09 CTA ================= -->
 <section class="cta dark sec" id="contact">
-  <img class="gen-bg" src="assets/gen/cta.png" alt="" onerror="this.remove()">
+  <img class="gen-bg" src="assets/images/cta.webp" alt="" onerror="this.remove()">
   <canvas class="circuit" data-density=".6" aria-hidden="true"></canvas>
   <div class="container rv">
     <p class="t-label muted-d">07 / CONTACT</p>
@@ -684,8 +700,8 @@ const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* ---------- logo: official hexagon mark (cropped) + "ZE PHY ROS" ---------- */
-const MARK = 'https://zpr.co.kr/wp-content/uploads/2025/10/%EB%A1%9C%EA%B3%A0_%EC%A0%9C%ED%94%BC%EB%A1%9C%EC%8A%A4_%EA%B0%80%EB%A1%9C_%ED%9D%91_150.png';
+/* ---------- logo: hexagon mark + "ZE PHY ROS" ---------- */
+const MARK = 'assets/logo/zephyros-mark.png';
 $$('[data-logo]').forEach(el => el.innerHTML = `<span class="mark"><img src="${MARK}" alt=""></span><span class="brand" aria-hidden="true">ZE<i></i>PHY<i></i>ROS</span>`);
 
 /* ---------- language (KO default · EN via ?lang=en) ---------- */
@@ -746,7 +762,7 @@ const EN = {
 };
 if (LANG === 'en') {
   $$('[data-k]').forEach(el => { const v = EN[el.dataset.k]; if (v !== undefined) el.innerHTML = v; });
-  document.title = 'ZEPHYROS — v2 mockup';
+  document.title = 'ZEPHYROS | Zephyros Electronics';
 }
 $$('[data-k-alt]').forEach(el => { el.alt = LANG === 'en' ? EN[el.dataset.kAlt] : $(`[data-k="${el.dataset.kAlt}"]`).textContent; });
 if (LANG === 'en') $$('[data-k-ph]').forEach(el => { el.placeholder = EN[el.dataset.kPh]; });
@@ -928,7 +944,7 @@ const TECH = [
   { id: 'emi', n: '01', kind: 'HW', short: { ko: 'EMI 필터', en: 'EMI filter' },
     title: { ko: '초박형 자성부품 · EMI 필터', en: 'Ultra-thin magnetics & EMI filters' },
     lead: { ko: '차폐재 없는 소자 구조 방식 EMI 필터', en: 'Shield-free EMI filters built on device structure' },
-    fig: 'assets/gen/tech-01.png', ir: 'assets/ir/emi-filter-layout.png', cap: { ko: 'FIG.01 — EMI 필터 레이아웃 · 자사 실증', en: 'FIG.01 — EMI filter layout · in-house validation' },
+    fig: 'assets/images/tech-01.webp',
     specs: [['47%↓', { ko: '원가', en: 'Cost' }], ['30%↓', { ko: '크기', en: 'Size' }], ['92%', { ko: '전력 변환 효율', en: 'Power efficiency' }], ['800V', { ko: '고전압 대응(Z1·Z2)', en: 'High-voltage ready (Z1·Z2)' }]],
     pap: [{ ko: '차폐재 추가에 따른 원가·무게 증가', en: 'Cost and weight added by shielding' },
           { ko: 'L·C 정밀 모델링 기반 구조적 노이즈 제거', en: 'Structural noise removal through precise L·C modeling' },
@@ -937,7 +953,7 @@ const TECH = [
   { id: 'embed', n: '02', kind: 'HW', short: { ko: 'Embedded L/C', en: 'Embedded L/C' },
     title: { ko: 'Embedded L/C 복합 패키지', en: 'Embedded L/C package' },
     lead: { ko: 'EMC 부품·센서 기판 내장형 소자 구조', en: 'Device structure with EMC parts and sensors built into the board' },
-    fig: 'assets/gen/tech-02.png', ir: 'assets/ir/embedded-stack-section.png', cap: { ko: 'FIG.02 — 기판 내장 적층 단면 · 자사 실증', en: 'FIG.02 — Embedded stack cross-section · in-house validation' }, compare: true,
+    fig: 'assets/images/tech-02.webp', compare: true,
     specs: [['70%', { ko: '집적률', en: 'Integration' }], ['98%', { ko: '자동화율', en: 'Automation' }], [{ ko: '1회', en: '1' }, { ko: '시제작', en: 'Prototype spin' }], ['20GHz', { ko: '정합 대역', en: 'Matched band' }]],
     pap: [{ ko: '수동 소자 증가에 따른 기판 면적·두께 증가', en: 'Board area and thickness growing with passive count' },
           { ko: '기판 내부 집적과 센서 융복합', en: 'In-board integration plus sensor fusion' },
@@ -946,7 +962,7 @@ const TECH = [
   { id: 'tactile', n: '03', kind: 'HW', short: { ko: 'LC 촉각센서', en: 'LC tactile' },
     title: { ko: 'LC 공진 촉각센서', en: 'LC resonant tactile sensor' },
     lead: { ko: '차폐 구조 기반 로봇 촉각용 LC 공진 방식 센서', en: 'LC resonant tactile sensor for robots, built on the shield structure' },
-    fig: 'assets/gen/tech-03.png', ir: 'assets/ir/tactile-array-3d.png', cap: { ko: 'FIG.03 — 촉각 어레이 구조 · 자사 실증', en: 'FIG.03 — Tactile array structure · in-house validation' },
+    fig: 'assets/images/tech-03.webp',
     specs: [['8→1', { ko: '배선 채널', en: 'Wiring channels' }], ['3×3', { ko: '어레이', en: 'Array' }], ['2%↓', { ko: '이력 오차', en: 'Hysteresis error' }], [{ ko: '9건', en: '9' }, { ko: '특허 출원 추진', en: 'Patent filings planned' }]],
     pap: [{ ko: '차폐와 감지의 상충, 센서 수만큼 늘어나는 배선', en: 'Shielding versus sensing, and wiring that grows with every sensor' },
           { ko: '차폐 구조의 센서화와 다중 공진 신호 분리', en: 'The shield as a sensor, with multi-resonance signal separation' },
@@ -955,7 +971,7 @@ const TECH = [
   { id: 'aidesign', n: '04', kind: 'SW', short: { ko: 'AI 설계 자동화', en: 'AI design' },
     title: { ko: 'AI 설계 자동화 · EMC 측정 표준', en: 'AI design automation & EMC measurement' },
     lead: { ko: 'AI 기반 설계 단계 EMC 사전 검증', en: 'AI-driven EMC verification at the design stage' },
-    fig: 'assets/gen/tech-04.png', ir: 'assets/ir/sparam-measured-vs-sim.png', cap: { ko: 'FIG.04 — 측정 vs 시뮬레이션 S-Parameter 정합 · 자사 실증', en: 'FIG.04 — Measured vs simulated S-parameters · in-house validation' },
+    fig: 'assets/images/tech-04.webp',
     specs: [['98%', { ko: '측정-시뮬레이션 정합', en: 'Sim-to-measurement match' }], [{ ko: '2주', en: '2 wk' }, { ko: '개발 기간(종래 3개월)', en: 'Design cycle (was 3 months)' }], ['90%↓', { ko: 'One-Spin 원가', en: 'One-Spin cost' }], [{ ko: '1회', en: '1' }, { ko: '시제작(종래 30~50회)', en: 'Prototype (was 30–50)' }]],
     pap: [{ ko: '출시 직전에야 드러나는 EMC 문제', en: 'EMC problems that surface just before launch' },
           { ko: '20년 산업 데이터 × AI 설계 × Full 3D 시뮬레이션', en: '20 years of data × AI design × full 3D simulation' },
@@ -964,7 +980,7 @@ const TECH = [
   { id: 'edge', n: '05', kind: 'SW', short: { ko: 'sLLM · Edge', en: 'sLLM · Edge' },
     title: { ko: '경량 AI(sLLM) · 초소형 Edge', en: 'Lightweight AI (sLLM) & micro edge' },
     lead: { ko: '센싱부터 추론까지 온디바이스 처리', en: 'On-device processing, from sensing to inference' },
-    fig: 'assets/gen/tech-05.png', ir: 'assets/ir/edge-board.png', cap: { ko: 'FIG.05 — 초소형 Edge 보드 · 자사 실증', en: 'FIG.05 — Micro edge board · in-house validation' },
+    fig: 'assets/images/tech-05.webp',
     specs: [['0.1s', { ko: '첫 응답(목표)', en: 'First response (target)' }], ['On-device', { ko: '추론 위치', en: 'Inference' }], ['sLLM', { ko: '경량 모델 1→2세대', en: 'Gen 1 → 2 models' }], ['Z·P·R', { ko: '전 제품 탑재', en: 'All product lines' }]],
     pap: [{ ko: '느린 클라우드 추론, 로봇용 플랫폼의 부재', en: 'Slow cloud inference and no platform built for robots' },
           { ko: '경량 sLLM과 센서단 토크나이징·압축', en: 'Lightweight sLLM with sensor-side tokenizing and compression' },
@@ -978,15 +994,9 @@ const FIGTXT = {
   cmpCap: { ko: 'FIG.02b — 표면 실장 vs 기판 내장 · 개념도(실제 제품 사진 아님)', en: 'FIG.02b — Surface-mount vs embedded · concept (not a product photo)' },
 };
 
-/* tech figure: generated concept image if present, otherwise the IR figure; caption follows the source */
-const figImg = x => `<img src="${x.fig}" alt="${L(x.title)}" data-ir="${x.ir}">`;
-const wireFig = (x, media, cap) => {
-  const img = media.querySelector('img'); if (!img) return;
-  const conceptCap = () => { cap.textContent = `FIG.${x.n} — ${L(x.title)} · ${L({ ko: '개념 이미지', en: 'concept image' })}`; };
-  img.addEventListener('error', () => { if (img.dataset.ir && !img.src.endsWith(img.dataset.ir)) { img.src = img.dataset.ir; cap.textContent = L(x.cap); } }, { once: true });
-  if (img.complete && img.naturalWidth && img.src.includes('/gen/')) conceptCap();
-  else img.addEventListener('load', () => { if (img.src.includes('/gen/')) conceptCap(); });
-};
+/* tech figure (concept image) and its caption */
+const figImg = x => `<img src="${x.fig}" alt="${L(x.title)}">`;
+const figCap = x => `FIG.${x.n} — ${L(x.title)} · ${L({ ko: '개념 이미지', en: 'concept image' })}`;
 function initTabs() {
   const list = $('.tabs'), panel = $('#tech-panel');
   list.innerHTML = TECH.map((x, i) => `<button class="tab" role="tab" id="tab-${x.id}" aria-controls="tech-panel" aria-selected="${i === 1}" tabindex="${i === 1 ? 0 : -1}" data-i="${i}"><span class="mono">${x.n}</span>${L(x.short)}<span class="tag${x.kind}">${x.kind}</span></button>`).join('');
@@ -996,11 +1006,10 @@ function initTabs() {
     panel.setAttribute('aria-labelledby', `tab-${x.id}`);
     panel.innerHTML = `<div class="panel-top">
       <div class="fig">${x.compare ? `<div class="fig-tools"><button aria-pressed="true" data-v="img">${L(FIGTXT.tools)[0]}</button><button aria-pressed="false" data-v="cmp">${L(FIGTXT.tools)[1]}</button></div>` : ''}
-        <div class="media">${figImg(x)}</div><p class="cap t-label">${L(x.cap)}</p></div>
+        <div class="media">${figImg(x)}</div><p class="cap t-label">${figCap(x)}</p></div>
       <div class="body"><p class="no t-label">${x.n} / 05 · <span class="tag${x.kind}">${x.kind}</span></p><h3 class="t-h3">${L(x.title)}</h3><p class="t-18">${L(x.lead)}</p>
         <div class="specs">${x.specs.map(([v, k]) => `<div><div class="v">${L(v)}</div><div class="k t-label">${L(k)}</div></div>`).join('')}</div></div></div>
       <div class="pap">${['PROBLEM', 'APPROACH', 'PROOF', 'FOR PRODUCTS'].map((h, k) => `<div><b>${h}</b><p class="t-18">${L(x.pap[k])}</p></div>`).join('')}</div>`;
-    wireFig(x, $('.media', panel), $('.cap', panel));
     if (x.compare) {
       const media = $('.media', panel), cap = $('.cap', panel);
       $$('.fig-tools button', panel).forEach(bt => bt.addEventListener('click', () => {
@@ -1009,7 +1018,7 @@ function initTabs() {
           media.innerHTML = `<div class="compare"><svg viewBox="0 0 800 480">${board('smt')}</svg><svg class="after" viewBox="0 0 800 480">${board('emb')}</svg><span class="cl">${L(FIGTXT.cmp)[0]}</span><span class="cr">${L(FIGTXT.cmp)[1]}</span><div class="handle"><div class="knob">‹ ›</div></div><input type="range" min="0" max="100" value="50" aria-label="${L(FIGTXT.cmpAria)}"></div>`;
           const c = $('.compare', media); $('input', c).addEventListener('input', e => c.style.setProperty('--pos', e.target.value + '%'));
           cap.textContent = L(FIGTXT.cmpCap);
-        } else { media.innerHTML = figImg(x); cap.textContent = L(x.cap); wireFig(x, media, cap); }
+        } else { media.innerHTML = figImg(x); cap.textContent = figCap(x); }
       }));
     }
   };
