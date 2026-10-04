@@ -111,6 +111,8 @@ html[lang="en"] .chip { font-weight: 400; }
 .hdr nav ul { display: flex; gap: 32px; font-size: 16px; font-weight: 500; }
 .hdr nav a { opacity: .9; } .hdr nav a:hover { opacity: 1; color: var(--sky); }
 .hdr .tools { display: flex; align-items: center; gap: 16px; }
+.hdr .ws { font-size: 14px; opacity: .75; } .hdr .ws:hover { opacity: 1; color: var(--sky); }
+@media (max-width: 767px) { .hdr .ws { display: none; } }
 .lang { display: inline-flex; gap: 2px; font: 400 13px var(--mono); }
 .lang a { padding: 4px 6px; border-radius: 4px; color: var(--muted-d); }
 .lang a[aria-current="true"] { color: #fff; background: rgba(255,255,255,.1); }
@@ -384,6 +386,24 @@ html[lang="en"] .tab, html[lang="en"] .fig-tools button { font-weight: 400; }
 .vision .t-lead { margin-top: 24px; font-size: 20px; }
 .vision .t-lead b { color: var(--royal); font-weight: 500; }
 .founder .who .prev { margin-top: 2px; color: var(--muted-l); font-size: 14.5px; }
+/* compact company block: the header link lands here, so the CEO card should fit one desktop screen */
+#company.sec { padding-top: 56px; }
+#company .vision { margin-bottom: 28px; }
+#company .vision .t-h2 { font-size: 40px; margin-top: 8px; }
+#company .vision .t-lead { margin-top: 12px; font-size: 18px; }
+.founder .who { padding: 20px 24px; display: grid; grid-template-columns: 96px minmax(0, 1fr); column-gap: 16px; align-content: start; }
+.founder .photo { width: 96px; grid-row: span 3; }
+.founder .who h3 { margin: 2px 0 2px; font-size: 24px; align-self: end; }
+.founder .who .role, .founder .who .prev { font-size: 14px; }
+.founder .career { grid-column: 1 / -1; margin-top: 16px; }
+.founder .career li { padding: 6px 0; font-size: 14px; line-height: 1.45; }
+.founder .facts > div { padding: 16px 28px; }
+.founder .facts .v { font-size: 36px; }
+.founder .facts .k { margin-top: 6px; line-height: 1.45; }
+.awards th, .awards td { padding: 8px 28px; }
+.awards th { padding-top: 12px; }
+.awards td small { margin-top: 1px; }
+@media (max-width: 767px) { #company .vision .t-h2 { font-size: 30px; } }
 .history-label { margin: 64px 0 8px; }
 .history-lead { margin-bottom: 20px; font-size: 20px; font-weight: 500; line-height: 1.5; }
 .history { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--ink); background: #fff; }
@@ -513,7 +533,7 @@ html:has(dialog.cf[open]) { overflow: hidden; }
       <li><a href="#zpr" data-k="nav.pf">플랫폼</a></li>
       <li><a href="#company" data-k="nav.co">회사</a></li>
     </ul></nav>
-    <div class="tools"><span class="lang" data-lang></span><a class="btn btn-white" href="#contact" data-k="nav.contact">문의</a></div>
+    <div class="tools"><a class="ws" href="https://zephyros-18875414-8aa36.web.app/" target="_blank" rel="noopener" data-k="nav.ws">워크스페이스</a><span class="lang" data-lang></span><a class="btn btn-white" href="#contact" data-k="nav.contact">문의</a></div>
   </div>
 </header>
 
@@ -526,7 +546,7 @@ html:has(dialog.cf[open]) { overflow: hidden; }
       <p class="t-label eyebrow">[ PHYSICAL AI — SENSING &amp; NOISE LAYER ]</p>
       <h1 class="t-h1 hero-en"><span>Less noise.</span><br><span>More sense.</span></h1>
       <p class="t-lead" data-k="hero.lead">노이즈는 줄이고, 감각은 더하는<br><b>AI와 로보틱스를 위한 하드웨어 &amp; 소프트웨어</b></p>
-      <div class="ctas"><a class="btn btn-primary" href="#consult" data-open="cf" aria-haspopup="dialog"><span data-k="cta.consult">기술 상담 요청</span><svg><use href="#i-arrow"/></svg></a><a class="btn btn-ghost" href="#zpr"><span data-k="hero.roadmap">Z·P·R 로드맵</span><svg><use href="#i-arrow"/></svg></a></div>
+      <div class="ctas"><a class="btn btn-primary" href="#consult" data-open="cf" aria-haspopup="dialog"><span data-k="cta.consult">기술 상담 요청</span><svg><use href="#i-arrow"/></svg></a><a class="btn btn-ghost" href="#zpr"><span data-k="hero.roadmap">Z·P·R 로드맵</span><svg><use href="#i-arrow"/></svg></a><a class="btn btn-ghost" href="#company"><span data-k="hero.about">회사 소개</span><svg><use href="#i-arrow"/></svg></a></div>
     </div>
     <figure>
       <div class="xray" data-xray></div>
@@ -855,7 +875,7 @@ html:has(dialog.cf[open]) { overflow: hidden; }
         <div><h5>HARDWARE</h5><ul><li><a href="#tech" data-tab="0" data-k="ft.l.emi">EMI 필터 · 자성부품</a></li><li><a href="#tech" data-tab="1">Embedded L/C</a></li><li><a href="#tech" data-tab="2" data-k="ft.l.tac">LC 촉각센서</a></li></ul></div>
         <div><h5>SOFTWARE</h5><ul><li><a href="#tech" data-tab="3" data-k="ft.l.ai">AI 설계 자동화</a></li><li><a href="#tech" data-tab="4" data-k="ft.l.edge">경량 AI · Edge</a></li><li><a href="#tech" data-tab="1">One-Spin</a></li><li><a href="#tech" data-tab="4" data-k="ft.l.sw">로보틱스 AI 연구</a></li></ul></div>
         <div><h5>PLATFORMS</h5><ul><li><a href="#zpr" data-k="ft.l.z">Z · 차량용</a></li><li><a href="#zpr" data-k="ft.l.p">P · 가정용</a></li><li><a href="#zpr" data-k="ft.l.r">R · 로봇용</a></li></ul></div>
-        <div><h5>COMPANY</h5><ul><li><a href="#company" data-k="ft.l.about">회사 소개</a></li><li><a href="#contact" data-k="ft.l.contact">문의하기</a></li><li><a href="privacy.html" data-k="ft.pv">개인정보처리방침</a></li></ul></div>
+        <div><h5>COMPANY</h5><ul><li><a href="#company" data-k="ft.l.about">회사 소개</a></li><li><a href="#contact" data-k="ft.l.contact">문의하기</a></li><li><a href="privacy.html" data-k="ft.pv">개인정보처리방침</a></li><li><a href="https://zephyros-18875414-8aa36.web.app/" target="_blank" rel="noopener" data-k="nav.ws">워크스페이스</a></li></ul></div>
       </nav>
       <form class="ft-sub" novalidate>
         <label for="ft-email" data-k="ft.sub">소식 받기*</label>
@@ -933,7 +953,7 @@ $$('[data-logo]').forEach(el => el.innerHTML = `<span class="mark"><img src="${M
 const LANG = document.documentElement.lang === 'en' ? 'en' : 'ko';
 const L = o => (o && typeof o === 'object' && 'ko' in o) ? o[LANG] : o;
 const EN = {
-  'nav.hw': 'Hardware', 'nav.sw': 'Software', 'nav.pf': 'Platforms', 'nav.co': 'Company', 'nav.contact': 'Contact',
+  'nav.hw': 'Hardware', 'nav.sw': 'Software', 'nav.pf': 'Platforms', 'nav.co': 'Company', 'nav.ws': 'Workspace', 'hero.about': 'About us', 'nav.contact': 'Contact',
   'hero.lead': '<b>Hardware &amp; software for AI and robotics</b> — the sensing and noise layer of Physical AI',
   'cta.consult': 'Talk to an engineer', 'hero.roadmap': 'Z·P·R roadmap',
   'hero.fig': 'FIG.00 — A clean surface, components inside',
