@@ -105,6 +105,7 @@ html[lang="en"] .chip { font-weight: 400; }
    ========================================================= */
 .hdr { position: fixed; inset: 0 0 auto 0; height: 54px; z-index: 20; background: rgba(3,10,31,.86); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid var(--hair-d); }
 html { scroll-padding-top: 54px; }   /* anchor jumps land below the fixed header */
+#tech, #zpr { scroll-margin-top: -104px; }   /* skip most of the 144px section padding so headings sit where the company jump lands */
 .hdr .container { height: 100%; display: flex; align-items: center; gap: 40px; }
 .logo { display: flex; align-items: center; gap: 9px; margin-right: auto; font-weight: 700; font-size: 17px; letter-spacing: .01em; color: #fff; }
 .logo .mark { display: block; height: 24px; flex: none; }
@@ -564,7 +565,7 @@ html:has(dialog.cf[open]) { overflow: hidden; }
   <img class="gen-bg" src="assets/images/statement.webp" alt="" onerror="this.remove()">
   <div class="container">
     <div class="inner rv">
-      <p class="t-label muted-d">01 / POSITIONING</p>
+      <p class="t-label muted-d">POSITIONING</p>
       <h2 class="t-h2" data-k="st.h2">표면 실장이 아닌,<br>기판 내장</h2>
       <p class="t-18" data-k="st.p">소재부터 시스템까지, 노이즈·전력·센싱 계층 설계</p>
       <div class="ctas"><a class="btn btn-primary" href="#tech"><span data-k="st.cta1">핵심 기술 보기</span><svg><use href="#i-arrow"/></svg></a><a class="btn btn-ghost" href="#tech" data-tab="1"><span data-k="st.cta2">One-Spin 설계</span><svg><use href="#i-arrow"/></svg></a></div>
@@ -582,7 +583,7 @@ html:has(dialog.cf[open]) { overflow: hidden; }
   <div class="engine-pin">
     <div class="container engine-grid">
       <div>
-        <p class="t-label muted-d">02 / HW × SW ENGINE</p>
+        <p class="t-label muted-d">HW × SW ENGINE</p>
         <h2 class="t-h2" data-k="en.h2">하드웨어와 소프트웨어,<br>하나의 설계</h2>
         <ol class="steps">
           <li class="step active"><span class="n">01</span><div><h3><span data-k="en.s1h">AI 설계 자동화</span> <span class="tagSW">SW</span></h3><p data-k="en.s1p">20년 산업 데이터 기반 배치·배선 자동 설계</p></div></li>
@@ -602,7 +603,7 @@ html:has(dialog.cf[open]) { overflow: hidden; }
 <section class="paper sec" id="tech">
   <div class="container">
     <div class="center-head rv">
-      <p class="t-label muted-l">03 / CORE TECHNOLOGY · 01—05</p>
+      <p class="t-label muted-l">CORE TECHNOLOGY</p>
       <h2 class="t-h2" data-k="te.h2">다섯 가지 기술, 하나의 계층</h2>
     </div>
     <div class="tabs" role="tablist" aria-label="Core technology"></div>
@@ -749,7 +750,7 @@ html:has(dialog.cf[open]) { overflow: hidden; }
 <section class="zpr dark sec" id="zpr">
   <div class="container">
     <div class="head rv">
-      <div><p class="t-label muted-d">04 / PLATFORMS</p><h2 class="t-display">Z <span>·</span> P <span>·</span> R</h2><p class="status t-label"><i></i><span>ROADMAP</span></p></div>
+      <div><p class="t-label muted-d">PLATFORMS</p><h2 class="t-display">Z <span>·</span> P <span>·</span> R</h2><p class="status t-label"><i></i><span>ROADMAP</span></p></div>
     </div>
     <div class="lines">
       <article class="line rv" data-line="Z">
@@ -785,7 +786,7 @@ html:has(dialog.cf[open]) { overflow: hidden; }
 <section class="paper sec founder" id="company">
   <div class="container">
     <div class="vision rv">
-      <p class="t-label muted-l">05 / COMPANY</p>
+      <p class="t-label muted-l">COMPANY</p>
       <h2 class="t-h2">Leading the future through<br>creative ecosystems</h2>
       <p class="t-lead muted-l" data-k="co.lead">소재·부품·모듈·시스템 통합 설계(SW 포함)로<br><b>10회 이상의 양산 성공 경험</b>을 가진 검증된 사업가 · 기술자</p>
     </div>
@@ -863,7 +864,7 @@ html:has(dialog.cf[open]) { overflow: hidden; }
   <img class="gen-bg" src="assets/images/cta.webp" alt="" onerror="this.remove()">
   <canvas class="circuit" data-density=".6" aria-hidden="true"></canvas>
   <div class="container rv">
-    <p class="t-label muted-d">06 / CONTACT</p>
+    <p class="t-label muted-d">CONTACT</p>
     <h2 class="t-display" data-k="ct.h2">더 작고 더 효율적인<br>당신의 하드웨어</h2>
     <p class="t-18" data-k="ct.p">제품 사양과 과제에 맞춘 제피로스의 기술 제안</p>
     <div class="ctas"><a class="btn btn-primary" href="#consult" data-open="cf" aria-haspopup="dialog"><span data-k="cta.consult">기술 상담 요청</span><svg><use href="#i-arrow"/></svg></a></div>
