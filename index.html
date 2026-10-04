@@ -103,7 +103,8 @@ html[lang="en"] .chip { font-weight: 400; }
 /* =========================================================
    Header — 54px, transparent, not sticky (Furiosa)
    ========================================================= */
-.hdr { position: absolute; inset: 0 0 auto 0; height: 54px; z-index: 20; }
+.hdr { position: fixed; inset: 0 0 auto 0; height: 54px; z-index: 20; background: rgba(3,10,31,.86); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid var(--hair-d); }
+html { scroll-padding-top: 54px; }   /* anchor jumps land below the fixed header */
 .hdr .container { height: 100%; display: flex; align-items: center; gap: 40px; }
 .logo { display: flex; align-items: center; gap: 9px; margin-right: auto; font-weight: 700; font-size: 17px; letter-spacing: .01em; color: #fff; }
 .logo .mark { display: block; height: 24px; flex: none; }
@@ -111,7 +112,9 @@ html[lang="en"] .chip { font-weight: 400; }
 .hdr nav ul { display: flex; gap: 32px; font-size: 16px; font-weight: 500; }
 .hdr nav a { opacity: .9; } .hdr nav a:hover { opacity: 1; color: var(--sky); }
 .hdr .tools { display: flex; align-items: center; gap: 16px; }
-.hdr .ws { font-size: 14px; opacity: .75; } .hdr .ws:hover { opacity: 1; color: var(--sky); }
+.hdr .ws { font-size: 16px; font-weight: 500; color: var(--sky); display: inline-flex; align-items: center; gap: 4px; }
+.hdr .ws::after { content: '↗'; font-size: 13px; }
+.hdr .ws:hover { color: #fff; }
 @media (max-width: 767px) { .hdr .ws { display: none; } }
 .lang { display: inline-flex; gap: 2px; font: 400 13px var(--mono); }
 .lang a { padding: 4px 6px; border-radius: 4px; color: var(--muted-d); }
@@ -137,6 +140,7 @@ html[lang="en"] .chip { font-weight: 400; }
 .hero .hero-en { text-transform: uppercase; letter-spacing: -0.02em; line-height: 1.04; }
 .hero .t-lead b { color: #fff; font-weight: 500; }
 .hero .t-lead { color: var(--muted-d); max-width: 520px; margin-bottom: 40px; }
+@media (min-width: 960px) { html[lang="ko"] .hero .ctas { flex-wrap: nowrap; width: max-content; } .hero .ctas .btn { padding: 14px 18px; gap: 10px; } }
 .hero-note { margin-top: 14px; color: var(--muted-d); }
 .tagrail { display: flex; flex-wrap: wrap; gap: 10px; padding: 64px 0 96px; }
 @media (max-width: 959px) { .hero-grid { grid-template-columns: 1fr; } .hero { padding-top: 112px; padding-bottom: 96px; } .xray-cap { position: static; margin-top: 12px; } }
@@ -387,7 +391,7 @@ html[lang="en"] .tab, html[lang="en"] .fig-tools button { font-weight: 400; }
 .vision .t-lead b { color: var(--royal); font-weight: 500; }
 .founder .who .prev { margin-top: 2px; color: var(--muted-l); font-size: 14.5px; }
 /* compact company block: the header link lands here, so the CEO card should fit one desktop screen */
-#company.sec { padding-top: 56px; }
+#company.sec { padding-top: 40px; }
 #company .vision { margin-bottom: 28px; }
 #company .vision .t-h2 { font-size: 40px; margin-top: 8px; }
 #company .vision .t-lead { margin-top: 12px; font-size: 18px; }
