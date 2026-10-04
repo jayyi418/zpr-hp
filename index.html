@@ -555,9 +555,9 @@ html:has(dialog.cf[open]) { overflow: hidden; }
     <a class="logo" href="#" aria-label="ZEPHYROS" data-logo></a>
     <nav aria-label="Main"><ul>
       <li><a href="#tech" data-tab="0" data-k="nav.hw">하드웨어</a></li>
-      <li><a href="#tech" data-tab="4" data-k="nav.sw">소프트웨어</a></li>
+      <li><a href="#tech" data-tab="3" data-k="nav.sw">소프트웨어</a></li>
       <li><a href="#zpr" data-k="nav.pf">플랫폼</a></li>
-      <li><a href="#company" data-k="nav.co">회사</a></li>
+      <li><a href="#company" data-k="nav.co">회사 소개</a></li>
     </ul></nav>
     <div class="tools"><a class="ws" href="https://zephyros-18875414-8aa36.web.app/" target="_blank" rel="noopener" data-k="nav.ws">워크스페이스</a><span class="lang" data-lang></span><a class="btn btn-white" href="#contact" data-k="nav.contact">문의</a></div>
   </div>
@@ -980,7 +980,7 @@ $$('[data-logo]').forEach(el => el.innerHTML = `<span class="mark"><img src="${M
 const LANG = document.documentElement.lang === 'en' ? 'en' : 'ko';
 const L = o => (o && typeof o === 'object' && 'ko' in o) ? o[LANG] : o;
 const EN = {
-  'nav.hw': 'Hardware', 'nav.sw': 'Software', 'nav.pf': 'Platforms', 'nav.co': 'Company', 'nav.ws': 'Workspace', 'hero.about': 'About us', 'nav.contact': 'Contact',
+  'nav.hw': 'Hardware', 'nav.sw': 'Software', 'nav.pf': 'Platforms', 'nav.co': 'About us', 'nav.ws': 'Workspace', 'hero.about': 'About us', 'nav.contact': 'Contact',
   'hero.lead': '<b>Hardware &amp; software for AI and robotics</b> — the sensing and noise layer of Physical AI',
   'cta.consult': 'Talk to an engineer', 'hero.roadmap': 'Z·P·R roadmap',
   'hero.fig': 'FIG.00 — A clean surface, components inside',
