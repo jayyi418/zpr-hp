@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>개인정보처리방침 | ZEPHYROS</title>
+<meta name="description" content="제피로스 일렉트로닉스(주) 개인정보처리방침">
+<link rel="canonical" href="https://zpr.co.kr/privacy.html">
+<meta name="theme-color" content="#030A1F">
+<link rel="icon" type="image/png" href="assets/logo/favicon.png">
+<link rel="apple-touch-icon" href="assets/logo/apple-touch-icon.png">
+<script>
+  // Same language rule as the home page: ?lang=en | ?lang=ko, remembered per viewer.
+  (function () {
+    var q = new URLSearchParams(location.search).get('lang'), s = null;
+    try { s = localStorage.getItem('zpr-lang'); } catch (e) {}
+    var lang = (q === 'en' || q === 'ko') ? q : (s === 'en' ? 'en' : 'ko');
+    try { localStorage.setItem('zpr-lang', lang); } catch (e) {}
+    document.documentElement.lang = lang;
+    if (lang === 'en') document.title = 'Privacy Policy | ZEPHYROS';
+  })();
+</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&display=swap">
+<style>
+:root {
+  --abyss: #030A1F; --royal: #0048C8; --paper: #F2F4F7; --ink: #0B1433; --line: #D3DAE4; --muted-l: #4F5A73;
+  --on-dark: #EEF2FA; --muted-d: #8F9BB8;
+  --sans: 'Wanted Sans Variable', 'Wanted Sans', -apple-system, system-ui, sans-serif;
+  --mono: 'Geist Mono', 'Wanted Sans Variable', ui-monospace, monospace;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; font: 400 16px/1.75 var(--sans); color: var(--ink); background: var(--paper); word-break: keep-all; overflow-wrap: break-word; -webkit-font-smoothing: antialiased; }
+a { color: var(--royal); }
+.wrap { width: min(100% - 40px, 860px); margin-inline: auto; }
+header { background: var(--abyss); color: var(--on-dark); }
+header .wrap { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+header .home { display: flex; align-items: center; gap: 10px; color: #fff; text-decoration: none; font: 600 15px var(--sans); letter-spacing: .14em; }
+header .home img { width: 26px; height: 26px; }
+.lang { display: flex; gap: 4px; }
+.lang a { color: var(--muted-d); text-decoration: none; font: 500 13px var(--mono); padding: 4px 8px; border-radius: 4px; }
+html[lang="ko"] .lang a[data-l="ko"], html[lang="en"] .lang a[data-l="en"] { color: #fff; background: rgba(255,255,255,.1); }
+html[lang="ko"] [lang="en"], html[lang="en"] [lang="ko"] { display: none; }
+main { padding: 64px 0 96px; }
+.eyebrow { font: 500 13px var(--mono); color: var(--muted-l); letter-spacing: .06em; }
+h1 { margin: 10px 0 20px; font-size: clamp(30px, 5vw, 44px); line-height: 1.25; font-weight: 600; }
+.intro { color: var(--muted-l); margin: 0 0 40px; }
+h2 { margin: 44px 0 12px; padding-top: 28px; border-top: 1px solid var(--line); font-size: 20px; font-weight: 600; }
+p { margin: 0 0 12px; }
+ul { margin: 0 0 12px; padding-left: 20px; }
+li { margin: 4px 0; }
+.tbl { overflow-x: auto; margin: 8px 0 16px; }
+table { width: 100%; min-width: 520px; border-collapse: collapse; font-size: 15px; background: #fff; }
+th, td { text-align: left; vertical-align: top; padding: 10px 14px; border: 1px solid var(--line); }
+th { background: #E7EBF1; font-weight: 600; }
+.date { margin-top: 48px; font: 500 14px var(--mono); color: var(--muted-l); }
+footer { background: var(--abyss); color: var(--muted-d); font-size: 14px; padding: 28px 0; }
+footer a { color: var(--on-dark); }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="home" href="./"><img src="assets/logo/zephyros-mark.png" alt="">ZEPHYROS</a>
+    <nav class="lang" aria-label="Language"><a href="?lang=ko" data-l="ko">KO</a><a href="?lang=en" data-l="en">EN</a></nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- ===================== 국문 ===================== -->
+<article lang="ko">
+  <p class="eyebrow">PRIVACY POLICY</p>
+  <h1>개인정보처리방침</h1>
+  <p class="intro">제피로스 일렉트로닉스(주)(이하 "회사")는 「개인정보 보호법」에 따라 이용자의 개인정보를 보호하고 관련 고충을 원활하게 처리할 수 있도록 다음과 같이 개인정보처리방침을 수립·공개합니다.</p>
+
+  <h2>1. 처리하는 개인정보 항목과 목적</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>구분</th><th>수집 항목</th><th>처리 목적</th></tr></thead>
+    <tbody>
+      <tr><td>기술 상담 요청</td><td>(필수) 이름, 회사·기관, 이메일, 문의 내용<br>(선택) 연락처, 관심 분야</td><td>문의 확인 및 회신, 상담 진행</td></tr>
+      <tr><td>소식 받기(구독)</td><td>(필수) 이메일</td><td>기술 자료 및 회사 소식 발송</td></tr>
+    </tbody>
+  </table></div>
+  <p>회사는 위 목적 외의 용도로 개인정보를 이용하지 않으며, 목적이 바뀌는 경우 별도의 동의를 받습니다.</p>
+
+  <h2>2. 보유 및 이용 기간</h2>
+  <ul>
+    <li>기술 상담 요청: 문의 처리 완료 후 1년</li>
+    <li>소식 받기(구독): 구독 해지 요청 시까지</li>
+  </ul>
+  <p>관계 법령에 따라 보존할 필요가 있는 경우에는 해당 법령에서 정한 기간 동안 보관합니다.</p>
+
+  <h2>3. 개인정보의 제3자 제공</h2>
+  <p>회사는 이용자의 개인정보를 제3자에게 제공하지 않습니다. 다만 이용자가 동의하거나 법령에 특별한 규정이 있는 경우는 예외로 합니다.</p>
+
+  <h2>4. 개인정보 처리의 위탁 및 국외 이전</h2>
+  <p>회사는 원활한 서비스 제공을 위해 다음과 같이 개인정보 처리 업무를 위탁하고 있습니다.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>수탁자</th><th>위탁 업무</th><th>비고</th></tr></thead>
+    <tbody>
+      <tr><td>FormSubmit (formsubmit.co)</td><td>홈페이지 문의·구독 신청 내용을 회사 이메일(sdh@zpr.co.kr)로 전달</td><td>국외 이전: 이용자가 양식을 제출하는 시점에 네트워크를 통해 FormSubmit 서버(국외)로 전송되며, 전달 목적 달성 후 지체 없이 처리 종료</td></tr>
+      <tr><td>(주)카페24</td><td>웹사이트 및 이메일 호스팅</td><td>국내</td></tr>
+    </tbody>
+  </table></div>
+  <p>국외 이전을 원하지 않는 경우 양식을 이용하지 않고 이메일(sdh@zpr.co.kr)로 직접 문의하실 수 있습니다.</p>
+
+  <h2>5. 개인정보의 파기</h2>
+  <p>보유 기간이 지나거나 처리 목적이 달성된 개인정보는 지체 없이 파기합니다. 전자적 파일은 복구할 수 없는 방법으로 삭제하고, 종이 문서는 분쇄하거나 소각합니다.</p>
+
+  <h2>6. 이용자의 권리와 행사 방법</h2>
+  <p>이용자는 언제든지 자신의 개인정보에 대해 열람, 정정, 삭제, 처리정지를 요구할 수 있으며, 구독 해지를 요청할 수 있습니다. 아래 개인정보 보호책임자에게 이메일 또는 전화로 요청하시면 지체 없이 조치하겠습니다.</p>
+
+  <h2>7. 자동으로 수집되는 정보</h2>
+  <ul>
+    <li>홈페이지는 언어 설정(국문/영문)을 이용자의 브라우저에만 저장하며, 이는 개인을 식별하지 않습니다.</li>
+    <li>홈페이지는 광고·분석 목적의 쿠키를 사용하지 않습니다.</li>
+    <li>웹 서버 및 글꼴·스크립트 제공 서비스(jsDelivr, Google Fonts)는 서비스 제공과 보안을 위해 접속 IP 등 접속 기록을 자동으로 생성할 수 있습니다.</li>
+  </ul>
+
+  <h2>8. 개인정보의 안전성 확보 조치</h2>
+  <p>회사는 개인정보가 담긴 이메일 계정에 대한 접근 권한을 최소한의 인원으로 제한하고, 암호화된 통신(HTTPS)을 사용하는 등 개인정보 보호를 위해 노력합니다.</p>
+
+  <h2>9. 개인정보 보호책임자</h2>
+  <ul>
+    <li>성명: 성도형</li>
+    <li>직책: 이사</li>
+    <li>연락처: <a href="tel:+821025209699">010-2520-9699</a>, <a href="mailto:sdh@zpr.co.kr">sdh@zpr.co.kr</a></li>
+  </ul>
+  <p>개인정보 침해에 대한 신고나 상담이 필요한 경우 개인정보침해신고센터(국번 없이 118, privacy.kisa.or.kr), 개인정보분쟁조정위원회(1833-6972, www.kopico.go.kr)에 문의하실 수 있습니다.</p>
+
+  <h2>10. 개인정보처리방침의 변경</h2>
+  <p>이 개인정보처리방침은 2026년 10월 4일부터 적용됩니다. 내용이 변경되는 경우 홈페이지를 통해 공지합니다.</p>
+  <p class="date">시행일: 2026-10-04</p>
+</article>
+
+<!-- ===================== English ===================== -->
+<article lang="en">
+  <p class="eyebrow">PRIVACY POLICY</p>
+  <h1>Privacy Policy</h1>
+  <p class="intro">Zephyros Electronics Inc. ("the Company") establishes and discloses this Privacy Policy in accordance with the Personal Information Protection Act of Korea to protect users' personal information and handle related inquiries promptly.</p>
+
+  <h2>1. Personal information we process and why</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Purpose</th><th>Items collected</th><th>Use</th></tr></thead>
+    <tbody>
+      <tr><td>Talk to an engineer</td><td>(Required) Name, company/organization, email, message<br>(Optional) Phone, areas of interest</td><td>Reviewing and replying to your inquiry</td></tr>
+      <tr><td>Sign up for updates</td><td>(Required) Email</td><td>Sending technical material and company news</td></tr>
+    </tbody>
+  </table></div>
+  <p>We do not use personal information for any other purpose. If the purpose changes, we will ask for your consent separately.</p>
+
+  <h2>2. Retention period</h2>
+  <ul>
+    <li>Inquiries: 1 year after the inquiry is closed</li>
+    <li>Updates: until you unsubscribe</li>
+  </ul>
+  <p>Where the law requires longer retention, we keep the information for the period the law specifies.</p>
+
+  <h2>3. Provision to third parties</h2>
+  <p>We do not provide your personal information to third parties, except with your consent or where required by law.</p>
+
+  <h2>4. Outsourcing and transfer abroad</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Processor</th><th>Task</th><th>Note</th></tr></thead>
+    <tbody>
+      <tr><td>FormSubmit (formsubmit.co)</td><td>Relaying inquiry and sign-up submissions to the Company's email (sdh@zpr.co.kr)</td><td>Transfer abroad: sent over the network to FormSubmit's servers (outside Korea) when you submit a form; processing ends once the message is relayed</td></tr>
+      <tr><td>Cafe24 Corp.</td><td>Website and email hosting</td><td>Korea</td></tr>
+    </tbody>
+  </table></div>
+  <p>If you do not want your information transferred abroad, you can email us directly at sdh@zpr.co.kr instead of using the forms.</p>
+
+  <h2>5. Destruction</h2>
+  <p>When the retention period ends or the purpose is fulfilled, we destroy the information without delay. Electronic files are deleted so they cannot be recovered; paper records are shredded or incinerated.</p>
+
+  <h2>6. Your rights</h2>
+  <p>You may at any time request access to, correction, deletion, or suspension of processing of your personal information, or unsubscribe from updates. Contact the privacy officer below and we will act without delay.</p>
+
+  <h2>7. Information collected automatically</h2>
+  <ul>
+    <li>The site stores only your language choice (Korean/English) in your browser; it does not identify you.</li>
+    <li>The site does not use advertising or analytics cookies.</li>
+    <li>The web server and the font/script providers (jsDelivr, Google Fonts) may automatically log access records such as IP addresses for service delivery and security.</li>
+  </ul>
+
+  <h2>8. Security measures</h2>
+  <p>We limit access to the email account holding personal information to the minimum number of people and use encrypted connections (HTTPS).</p>
+
+  <h2>9. Privacy officer</h2>
+  <ul>
+    <li>Name: Dohyung Sung</li>
+    <li>Title: Director</li>
+    <li>Contact: <a href="tel:+821025209699">+82-10-2520-9699</a>, <a href="mailto:sdh@zpr.co.kr">sdh@zpr.co.kr</a></li>
+  </ul>
+  <p>For reports or consultation on privacy infringement, you may also contact the Personal Information Infringement Report Center (118, privacy.kisa.or.kr) or the Personal Information Dispute Mediation Committee (1833-6972, www.kopico.go.kr).</p>
+
+  <h2>10. Changes to this policy</h2>
+  <p>This policy is effective as of October 4, 2026. Any changes will be announced on this website.</p>
+  <p class="date">Effective: 2026-10-04</p>
+</article>
+
+</main>
+
+<footer>
+  <div class="wrap"><span lang="ko">© 2026 제피로스 일렉트로닉스(주) · </span><span lang="en">© 2026 Zephyros Electronics Inc. · </span><a href="./"><span lang="ko">홈으로</span><span lang="en">Home</span></a></div>
+</footer>
+</body>
+</html>
