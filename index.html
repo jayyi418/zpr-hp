@@ -106,18 +106,14 @@ html[lang="en"] .chip { font-weight: 400; }
 .hdr { position: fixed; inset: 0 0 auto 0; height: 54px; z-index: 20; background: rgba(3,10,31,.86); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid var(--hair-d); }
 html { scroll-padding-top: 54px; }   /* anchor jumps land below the fixed header */
 /* intro: full-screen motion graphic on the video's own navy, so the square clip reads as full-bleed */
-.intro-wrap { position: relative; }
-.intro { position: sticky; top: 0; height: 100vh; height: 100svh; display: grid; place-items: center; overflow: hidden; background: #010B20; z-index: 0; }
+.intro { position: relative; height: 100vh; height: 100svh; display: grid; place-items: center; overflow: hidden; background: #010B20; z-index: 0; }
 .intro-v { width: min(100vw, 100svh); height: min(100vw, 100svh); object-fit: contain; }
 .intro-scroll { position: absolute; left: 50%; bottom: 22px; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 6px; color: #1b1d22; font: 500 11px var(--mono); letter-spacing: .14em; }
 .intro-scroll { color: var(--on-dark); opacity: .8; }
 .intro-scroll i { width: 14px; height: 14px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(45deg); animation: intro-bob 1.8s ease-in-out infinite; }
 @keyframes intro-bob { 50% { transform: translate(0, 5px) rotate(45deg); } }
 @media (prefers-reduced-motion: reduce) { .intro-scroll i { animation: none; } }
-.intro-wrap .hero { z-index: 1; }
-/* header while the intro is on screen: transparent over the navy clip */
 .hdr { transition: background .3s, border-color .3s, color .3s; }
-.hdr.on-light { background: transparent; border-bottom-color: transparent; -webkit-backdrop-filter: none; backdrop-filter: none; }
 #tech, #zpr { scroll-margin-top: -104px; }   /* skip most of the 144px section padding so headings sit where the company jump lands */
 /* compact core-tech block so heading, tabs and the whole panel fit one desktop screen after the header jump */
 #tech .center-head .t-h2 { font-size: 40px; margin: 8px 0 0; }
@@ -125,9 +121,10 @@ html { scroll-padding-top: 54px; }   /* anchor jumps land below the fixed header
 #tech .fig { padding: 18px 24px; }
 #tech .fig .media { min-height: 280px; }
 #tech .fig .media img { max-height: 330px; cursor: zoom-in; }
+#tech .fig .media video { display: block; width: 100%; max-height: 330px; object-fit: contain; cursor: zoom-in; }
 .zoom { max-width: min(96vw, 1680px); max-height: 94vh; padding: 0; border: 0; background: #fff; overflow: hidden; cursor: zoom-out; }
 .zoom::backdrop { background: rgba(3,10,31,.86); }
-.zoom img { display: block; max-width: min(96vw, 1680px); max-height: 94vh; width: auto; height: auto; }
+.zoom img, .zoom video { display: block; max-width: min(96vw, 1680px); max-height: 94vh; width: auto; height: auto; }
 .zoom-x { position: absolute; top: 8px; right: 8px; width: 36px; height: 36px; border: 0; border-radius: 50%; background: rgba(3,10,31,.7); color: #fff; font-size: 22px; line-height: 1; cursor: pointer; }
 #tech .fig-tools { margin-bottom: 10px; }
 #tech .fig .cap { margin-top: 10px; }
@@ -161,6 +158,7 @@ html { scroll-padding-top: 54px; }   /* anchor jumps land below the fixed header
    01 Hero
    ========================================================= */
 .hero { position: relative; overflow: hidden; isolation: isolate; padding: 168px 0 160px; display: flex; flex-direction: column; }
+.hero { min-height: 100vh; min-height: 100svh; justify-content: center; padding-top: 110px; padding-bottom: 90px; }   /* full screen, so each wheel step shows exactly one panel */
 .hero .circuit { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; opacity: .9;
   -webkit-mask-image: linear-gradient(90deg, rgba(0,0,0,.25), #000 60%), linear-gradient(180deg, #000 70%, transparent);
   -webkit-mask-composite: source-in;
@@ -581,11 +579,6 @@ html:has(dialog.cf[open]) { overflow: hidden; }
 
 <main>
 <!-- ================= 01 Hero ================= -->
-<div class="intro-wrap">
-<section class="intro" id="intro" aria-label="ZEPHYROS">
-  <video class="intro-v" src="assets/video/intro-v7.mp4" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
-  <a class="intro-scroll" href="#top" aria-label="아래로 스크롤"><i></i>SCROLL</a>
-</section>
 <section class="hero dark" id="top">
   <canvas class="circuit" data-density=".8" aria-hidden="true"></canvas>
   <div class="container hero-grid">
@@ -601,10 +594,15 @@ html:has(dialog.cf[open]) { overflow: hidden; }
     </figure>
   </div>
 </section>
-</div>
+
+<!-- brand clip between the landing and POSITIONING; plays while on screen -->
+<section class="intro" id="intro" aria-label="ZEPHYROS">
+  <video class="intro-v" src="assets/video/intro-v7.mp4" muted loop playsinline preload="auto" aria-hidden="true"></video>
+  <a class="intro-scroll" href="#positioning" aria-label="아래로 스크롤"><i></i>SCROLL</a>
+</section>
 
 <!-- ================= 03 Statement ================= -->
-<section class="statement dark sec">
+<section class="statement dark sec" id="positioning">
   <img class="gen-bg" src="assets/images/statement.webp" alt="" onerror="this.remove()">
   <div class="container">
     <div class="inner rv">
@@ -1000,17 +998,20 @@ html:has(dialog.cf[open]) { overflow: hidden; }
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-/* ---------- intro: header colour, reduced motion, one wheel step between intro and hero ---------- */
+/* ---------- brand clip: plays from the start each time it scrolls into view; wheel steps landing -> clip -> POSITIONING ---------- */
 const intro = document.getElementById('intro');
 if (intro) {
-  const hdr = document.querySelector('.hdr'), vid = intro.querySelector('video');
-  // plays even with reduced motion on (slow, non-flashing brand clip the owner asked to show); autoplay attr alone is not always honoured
+  const vid = intro.querySelector('video'), pos = document.getElementById('positioning');
+  // plays even with reduced motion on (slow, non-flashing brand clip the owner asked to show)
   const tryPlay = () => { const p = vid.play(); if (p) p.catch(() => {}); };
-  tryPlay();
-  ['pointerdown', 'keydown', 'wheel', 'touchstart'].forEach(t => addEventListener(t, () => { if (vid.paused) tryPlay(); }, { once: true, passive: true }));   // browsers that block autoplay start on first interaction
-  const introH = () => intro.offsetHeight;
-  const mark = () => hdr.classList.toggle('on-light', scrollY < introH() - 54);
-  mark(); addEventListener('scroll', mark, { passive: true }); addEventListener('resize', mark);
+  new IntersectionObserver(([en]) => {
+    if (en.isIntersecting) { if (vid.paused) { vid.currentTime = 0; tryPlay(); } }
+    else vid.pause();
+  }, { threshold: .5 }).observe(intro);
+  // browsers that block autoplay start on first interaction
+  ['pointerdown', 'keydown', 'wheel', 'touchstart'].forEach(t => addEventListener(t, () => {
+    const r = intro.getBoundingClientRect(); if (vid.paused && r.top < innerHeight / 2 && r.bottom > innerHeight / 2) tryPlay();
+  }, { passive: true }));
   let moving = false;
   // own easing instead of behavior:'smooth' — browsers jump instantly when the OS has reduced motion on, which loses the slide
   const go = y => {
@@ -1019,14 +1020,16 @@ if (intro) {
       scrollTo(0, y0 + d * e); if (k < 1) requestAnimationFrame(step); else setTimeout(() => { moving = false; }, 120); };
     requestAnimationFrame(step);
   };
+  const top = el => Math.round(el.getBoundingClientRect().top + scrollY);
   addEventListener('wheel', e => {
-    const h = introH(), y = scrollY;
-    if (y > h + 2) return;                                   // below the hero top: normal scrolling
+    const stops = [0, top(intro), top(pos)], y = scrollY, last = stops[2];
+    if (y > last + 2) return;                                // past POSITIONING: normal scrolling
     if (moving) { e.preventDefault(); return; }
-    if (e.deltaY > 0 && y < h - 2) { e.preventDefault(); go(h); }
-    else if (e.deltaY < 0 && y > 0) { e.preventDefault(); go(0); }
+    const next = e.deltaY > 0 ? stops.find(s => s > y + 2) : [...stops].reverse().find(s => s < y - 2);
+    if (next === undefined) return;
+    e.preventDefault(); go(next);
   }, { passive: false });
-  intro.querySelector('.intro-scroll').addEventListener('click', e => { e.preventDefault(); go(introH()); });
+  intro.querySelector('.intro-scroll').addEventListener('click', e => { e.preventDefault(); go(top(pos)); });
 }
 
 /* ---------- logo: hexagon mark + "ZE PHY ROS" ---------- */
@@ -1342,7 +1345,7 @@ const TECH = [
   { id: 'aidesign', n: '04', kind: 'SW', short: { ko: 'AI 설계 자동화', en: 'AI design' },
     title: { ko: 'AI 설계 자동화 · EMC 측정 표준', en: 'AI design automation & EMC measurement' },
     lead: { ko: 'AI 기반 설계 단계 EMC 사전 검증', en: 'AI-driven EMC verification at the design stage' },
-    fig: 'assets/images/tech-04-pcb.webp',
+    fig: 'assets/images/tech-04-pcb.webp', video: 'assets/video/tech-04-pcb.mp4',
     specs: [['98%', { ko: '측정-시뮬레이션 정합', en: 'Sim-to-measurement match' }], [{ ko: '2주', en: '2 wk' }, { ko: '개발 기간(종래 3개월)', en: 'Design cycle (was 3 months)' }], ['Full 3D', { ko: '시뮬레이션 사전 검증', en: 'Simulation pre-check' }],[{ ko: '1회', en: '1' }, { ko: '시제작(종래 30~50회)', en: 'Prototype (was 30–50)' }]],
     pap: [{ ko: '출시 직전에야 드러나는 EMC 문제', en: 'EMC problems that surface just before launch' },
           { ko: '20년 산업 데이터 × AI 설계 × Full 3D 시뮬레이션', en: '20 years of data × AI design × full 3D simulation' },
@@ -1366,7 +1369,9 @@ const FIGTXT = {
 };
 
 /* tech figure (concept image) and its caption */
-const figImg = x => `<img src="${x.fig}" alt="${L(x.title)}">`;
+const figImg = x => x.video
+  ? `<video src="${x.video}" poster="${x.fig}" muted loop playsinline autoplay aria-label="${L(x.title)}"></video>`   // poster shows while the clip loads
+  : `<img src="${x.fig}" alt="${L(x.title)}">`;
 const figCap = x => `FIG.${x.n} — ${L(x.title)} · ${L({ ko: '개념 이미지', en: 'concept image' })}`;
 function initTabs() {
   const list = $('.tabs'), panel = $('#tech-panel');
@@ -1399,8 +1404,14 @@ function initTabs() {
   list.addEventListener('click', e => { const b = e.target.closest('.tab'); if (b) show(+b.dataset.i); });
   /* tab figures open larger on click (the 05 flow diagram is too wide to read inside the panel) */
   const zoom = $('#zoom');
-  panel.addEventListener('click', e => { const im = e.target.closest('.media img'); if (!im || !zoom.showModal) return; const z = $('img', zoom); z.src = im.src; z.alt = im.alt; zoom.showModal(); });
+  panel.addEventListener('click', e => {
+    const el = e.target.closest('.media img, .media video'); if (!el || !zoom.showModal) return;
+    $$('img, video', zoom).forEach(n => n.remove());
+    const big = el.tagName === 'VIDEO' ? Object.assign(document.createElement('video'), { src: el.currentSrc || el.src, muted: true, loop: true, playsInline: true, autoplay: true }) : Object.assign(document.createElement('img'), { src: el.src, alt: el.alt });
+    zoom.prepend(big); zoom.showModal(); if (big.play) big.play().catch(() => {});
+  });
   zoom.addEventListener('click', () => zoom.close());
+  zoom.addEventListener('close', () => $$('video', zoom).forEach(v => v.pause()));
   list.addEventListener('keydown', e => { if (!['ArrowLeft', 'ArrowRight'].includes(e.key)) return; const cur = $$('.tab', list).findIndex(b => b.getAttribute('aria-selected') === 'true'); const nx = (cur + (e.key === 'ArrowRight' ? 1 : TECH.length - 1)) % TECH.length; show(nx); $$('.tab', list)[nx].focus(); });
   $$('[data-tab]').forEach(a => a.addEventListener('click', () => show(+a.dataset.tab)));
   const legacy = { '#software': 4, '#onespin': 1 }[location.hash];   // links from the earlier layout
