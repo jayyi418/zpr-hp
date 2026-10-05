@@ -545,7 +545,7 @@ html:has(dialog.cf[open]) { overflow: hidden; }
 .js .rv { opacity: 0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease; }
 .js .rv.in { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) { .js .rv { opacity: 1; transform: none; transition: none; } .bar .fill { transition: none; } }
-.company-video { margin-top: 48px; }
+.company-video { margin-top: 48px; width: 90vw; max-width: 1920px; position: relative; left: 50%; transform: translateX(-50%); }
 .company-video h3 { margin-bottom: 20px; }
 .company-video video { display: block; width: 100%; height: auto; background: var(--paper); border-radius: 4px; }
 </style>
@@ -852,8 +852,8 @@ html:has(dialog.cf[open]) { overflow: hidden; }
     <div class="company-video">
       <h3 class="t-h3" data-k="co.video">제피로스 소개 영상</h3>
       <video controls playsinline preload="metadata" aria-label="제피로스 소개 영상" data-k-aria="co.video">
-        <source src="assets/videos/zephyros-introduction.mp4" type="video/mp4">
-        <a href="assets/videos/zephyros-introduction.mp4">MP4</a>
+        <source src="assets/videos/zephyros-introduction-2b2f69629e21.mp4" type="video/mp4">
+        <a href="assets/videos/zephyros-introduction-2b2f69629e21.mp4">MP4</a>
       </video>
     </div>
     <p class="t-label muted-l history-label">HISTORY</p>
