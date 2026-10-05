@@ -545,6 +545,9 @@ html:has(dialog.cf[open]) { overflow: hidden; }
 .js .rv { opacity: 0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease; }
 .js .rv.in { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) { .js .rv { opacity: 1; transform: none; transition: none; } .bar .fill { transition: none; } }
+.company-video { margin-top: 48px; }
+.company-video h3 { margin-bottom: 20px; }
+.company-video video { display: block; width: 100%; max-height: 75vh; background: #030A1F; border-radius: 4px; }
 </style>
 </head>
 <body>
@@ -846,6 +849,13 @@ html:has(dialog.cf[open]) { overflow: hidden; }
         </table>
       </div>
     </div>
+    <div class="company-video">
+      <h3 class="t-h3" data-k="co.video">제피로스 소개 영상</h3>
+      <video controls playsinline preload="metadata" aria-label="제피로스 소개 영상" data-k-aria="co.video">
+        <source src="assets/videos/zephyros-introduction.mp4" type="video/mp4">
+        <a href="assets/videos/zephyros-introduction.mp4">MP4</a>
+      </video>
+    </div>
     <p class="t-label muted-l history-label">HISTORY</p>
     <p class="history-lead" data-k="hi.lead">설립 1년 만에 정부 지원사업 다수 선정과 대기업 협업을 확보하며, 계획을 앞선 실행력을 입증했습니다.</p>
     <div class="history rv">
@@ -1027,7 +1037,7 @@ const EN = {
   'zp.rn': 'ROS · Robotics', 'zp.rh': 'Ultra-compact Robot Edge Computer', 'zp.rg': 'R1 · touch + wireless + edge', 'zp.t3': '③ LC tactile sensor',
   'zp.pill3': 'GEN3.0 shared', 'zp.pillr': 'R1 ultra-compact',
   'co.lead': 'A proven entrepreneur and engineer with <b>10+ mass-production launches</b><br>through integrated design from materials and components to modules and systems (incl. software)',
-  'co.name': 'Yooseon Kim', 'co.role': 'CEO, Ph.D.', 'co.prev': 'Former Principal Research Engineer, LG Innotek',
+  'co.video': 'Zephyros introduction', 'co.name': 'Yooseon Kim', 'co.role': 'CEO, Ph.D.', 'co.prev': 'Former Principal Research Engineer, LG Innotek',
   'co.c1': 'B.S. / M.S. / Ph.D., Electronic &amp; Computer Engineering (JNU)', 'co.c2': 'LG Power Division', 'co.c3': 'LG Network Solution Division',
   'co.c4': 'LG Components &amp; Materials R&amp;D Center', 'co.c5': 'LG Science Park, Future Technology Lab (CTO Division)',
   'co.a4': 'Haedong Award for Outstanding Industrial Technology Paper', 'co.a4i': 'Haedong Science &amp; Culture Foundation',
