@@ -105,7 +105,24 @@ html[lang="en"] .chip { font-weight: 400; }
    ========================================================= */
 .hdr { position: fixed; inset: 0 0 auto 0; height: 54px; z-index: 20; background: rgba(3,10,31,.86); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid var(--hair-d); }
 html { scroll-padding-top: 54px; }   /* anchor jumps land below the fixed header */
-#tech, #zpr { scroll-margin-top: -104px; }
+/* intro: full-screen motion graphic on the video's own beige, so the square clip reads as full-bleed */
+.intro-wrap { position: relative; }
+.intro { position: sticky; top: 0; height: 100vh; height: 100svh; display: grid; place-items: center; overflow: hidden; background: #E8E7E0; z-index: 0; }
+.intro-v { width: min(100vw, 100svh); height: min(100vw, 100svh); object-fit: contain; }
+.intro-scroll { position: absolute; left: 50%; bottom: 22px; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 6px; color: #1b1d22; font: 500 11px var(--mono); letter-spacing: .14em; }
+.intro-scroll i { width: 14px; height: 14px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(45deg); animation: intro-bob 1.8s ease-in-out infinite; }
+@keyframes intro-bob { 50% { transform: translate(0, 5px) rotate(45deg); } }
+@media (prefers-reduced-motion: reduce) { .intro-scroll i { animation: none; } }
+.intro-wrap .hero { z-index: 1; }
+/* header while the intro is on screen: transparent with dark text */
+.hdr { transition: background .3s, border-color .3s, color .3s; }
+.hdr.on-light { background: transparent; border-bottom-color: transparent; -webkit-backdrop-filter: none; backdrop-filter: none; color: #14161c; }
+.hdr.on-light .logo, .hdr.on-light nav a { color: #14161c; }
+.hdr.on-light nav a:hover { color: var(--royal); }
+.hdr.on-light .ws { color: var(--royal); } .hdr.on-light .ws:hover { color: #14161c; }
+.hdr.on-light .lang a { color: #6b6f78; } .hdr.on-light .lang a[aria-current="true"] { color: #14161c; background: rgba(0,0,0,.07); }
+.hdr.on-light .btn-white { background: #14161c; color: #fff; }
+#tech, #zpr { scroll-margin-top: -104px; }   /* skip most of the 144px section padding so headings sit where the company jump lands */
 /* compact core-tech block so heading, tabs and the whole panel fit one desktop screen after the header jump */
 #tech .center-head .t-h2 { font-size: 40px; margin: 8px 0 0; }
 #tech .tabs { margin: 24px 0 20px; }
@@ -126,7 +143,7 @@ html { scroll-padding-top: 54px; }   /* anchor jumps land below the fixed header
 #tech .pap > div { padding: 14px 24px; }
 #tech .pap b { margin-bottom: 4px; }
 #tech .pap .t-18 { font-size: 15.5px; line-height: 1.5; }
-@media (max-width: 767px) { #tech .center-head .t-h2 { font-size: 30px; } #tech .body .t-h3 { font-size: 26px; } }   /* skip most of the 144px section padding so headings sit where the company jump lands */
+@media (max-width: 767px) { #tech .center-head .t-h2 { font-size: 30px; } #tech .body .t-h3 { font-size: 26px; } }
 .hdr .container { height: 100%; display: flex; align-items: center; gap: 40px; }
 .logo { display: flex; align-items: center; gap: 9px; margin-right: auto; font-weight: 700; font-size: 17px; letter-spacing: .01em; color: #fff; }
 .logo .mark { display: block; height: 24px; flex: none; }
@@ -568,6 +585,11 @@ html:has(dialog.cf[open]) { overflow: hidden; }
 
 <main>
 <!-- ================= 01 Hero ================= -->
+<div class="intro-wrap">
+<section class="intro" id="intro" aria-label="ZEPHYROS">
+  <video class="intro-v" src="assets/video/intro.mp4" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
+  <a class="intro-scroll" href="#top" aria-label="아래로 스크롤"><i></i>SCROLL</a>
+</section>
 <section class="hero dark" id="top">
   <canvas class="circuit" data-density=".8" aria-hidden="true"></canvas>
   <div class="container hero-grid">
@@ -583,6 +605,7 @@ html:has(dialog.cf[open]) { overflow: hidden; }
     </figure>
   </div>
 </section>
+</div>
 
 <!-- ================= 03 Statement ================= -->
 <section class="statement dark sec">
@@ -981,6 +1004,34 @@ html:has(dialog.cf[open]) { overflow: hidden; }
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+/* ---------- intro: header colour, reduced motion, one wheel step between intro and hero ---------- */
+const intro = document.getElementById('intro');
+if (intro) {
+  const hdr = document.querySelector('.hdr'), vid = intro.querySelector('video');
+  // plays even with reduced motion on (slow, non-flashing brand clip the owner asked to show); autoplay attr alone is not always honoured
+  const tryPlay = () => { const p = vid.play(); if (p) p.catch(() => {}); };
+  tryPlay();
+  ['pointerdown', 'keydown', 'wheel', 'touchstart'].forEach(t => addEventListener(t, () => { if (vid.paused) tryPlay(); }, { once: true, passive: true }));   // browsers that block autoplay start on first interaction
+  const introH = () => intro.offsetHeight;
+  const mark = () => hdr.classList.toggle('on-light', scrollY < introH() - 54);
+  mark(); addEventListener('scroll', mark, { passive: true }); addEventListener('resize', mark);
+  let moving = false;
+  // own easing instead of behavior:'smooth' — browsers jump instantly when the OS has reduced motion on, which loses the slide
+  const go = y => {
+    moving = true; const y0 = scrollY, d = y - y0, t0 = performance.now(), T = 750;
+    const step = now => { const k = Math.min(1, (now - t0) / T), e = k < .5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
+      scrollTo(0, y0 + d * e); if (k < 1) requestAnimationFrame(step); else setTimeout(() => { moving = false; }, 120); };
+    requestAnimationFrame(step);
+  };
+  addEventListener('wheel', e => {
+    const h = introH(), y = scrollY;
+    if (y > h + 2) return;                                   // below the hero top: normal scrolling
+    if (moving) { e.preventDefault(); return; }
+    if (e.deltaY > 0 && y < h - 2) { e.preventDefault(); go(h); }
+    else if (e.deltaY < 0 && y > 0) { e.preventDefault(); go(0); }
+  }, { passive: false });
+  intro.querySelector('.intro-scroll').addEventListener('click', e => { e.preventDefault(); go(introH()); });
+}
 
 /* ---------- logo: hexagon mark + "ZE PHY ROS" ---------- */
 const MARK = 'assets/logo/zephyros-mark.png';
