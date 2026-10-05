@@ -173,7 +173,9 @@ html { scroll-padding-top: 54px; }   /* anchor jumps land below the fixed header
 .hero .hero-en { text-transform: uppercase; letter-spacing: -0.02em; line-height: 1.04; }
 .hero .t-lead b { color: #fff; font-weight: 500; }
 .hero .t-lead { color: var(--muted-d); max-width: 520px; margin-bottom: 40px; }
-@media (max-width: 559px) { .hero .ctas { flex-wrap: nowrap; gap: 6px; } .hero .ctas .btn { flex: 1 1 auto; justify-content: center; min-height: 44px; padding: 10px 8px; font-size: 13.5px; gap: 0; } .hero .ctas .btn svg { display: none; } }
+/* mobile tabs: hardware 01–03 on the first row, software 04–05 on the second; labels only */
+@media (max-width: 559px) { #tech .tabs { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 6px; margin: 18px 0 16px; } #tech .tab { grid-column: span 2; justify-content: center; padding: 10px 4px; font-size: 13px; gap: 0; white-space: nowrap; } #tech .tab:nth-child(n+4) { grid-column: span 3; } #tech .tab .mono, #tech .tab [class^="tag"] { display: none; } }
+@media (max-width: 559px) { .hero .ctas, .statement .ctas { flex-wrap: nowrap; gap: 6px; } .hero .ctas .btn, .statement .ctas .btn { flex: 1 1 auto; justify-content: center; min-height: 44px; padding: 10px 8px; font-size: 13.5px; gap: 0; } .hero .ctas .btn svg, .statement .ctas .btn svg { display: none; } }
 @media (min-width: 960px) { html[lang="ko"] .hero .ctas { flex-wrap: nowrap; width: max-content; } .hero .ctas .btn { padding: 14px 18px; gap: 10px; } }
 .hero-note { margin-top: 14px; color: var(--muted-d); }
 .tagrail { display: flex; flex-wrap: wrap; gap: 10px; padding: 64px 0 96px; }
@@ -1040,9 +1042,10 @@ if (intro) {
     if (ty === null) return;
     const dy = ty - e.touches[0].clientY;
     if (moving || used) { if (scrollY <= top(pos) + 2 && e.cancelable) e.preventDefault(); return; }
+    if (!dy) return;
+    const t = target(dy > 0); if (t === undefined) return;     // outside the zone: let the browser scroll
+    if (e.cancelable) e.preventDefault();                       // inside: block native scrolling from the first pixel
     if (Math.abs(dy) < 12) return;
-    const t = target(dy > 0); if (t === undefined) return;
-    if (e.cancelable) e.preventDefault();
     used = true; go(t);
   }, { passive: false });
   addEventListener('touchend', () => { ty = null; }, { passive: true });
