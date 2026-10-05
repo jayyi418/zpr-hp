@@ -121,7 +121,7 @@ html { scroll-padding-top: 54px; }   /* anchor jumps land below the fixed header
 #tech .fig { padding: 18px 24px; }
 #tech .fig .media { min-height: 280px; }
 #tech .fig .media img { max-height: 330px; cursor: zoom-in; }
-#tech .fig .media video { display: block; width: 100%; max-height: 330px; object-fit: contain; cursor: zoom-in; }
+#tech .fig .media video { display: block; width: 100%; aspect-ratio: 16 / 9; max-height: 330px; object-fit: contain; background: #fff; cursor: zoom-in; }   /* keeps its box while loading */
 .zoom { max-width: min(96vw, 1680px); max-height: 94vh; padding: 0; border: 0; background: #fff; overflow: hidden; cursor: zoom-out; }
 .zoom::backdrop { background: rgba(3,10,31,.86); }
 .zoom img, .zoom video { display: block; max-width: min(96vw, 1680px); max-height: 94vh; width: auto; height: auto; }
@@ -1390,7 +1390,7 @@ const FIGTXT = {
 
 /* tech figure (concept image) and its caption */
 const figImg = x => x.video
-  ? `<video src="${x.video}" poster="${x.fig}" muted loop playsinline autoplay aria-label="${L(x.title)}"></video>`   // poster shows while the clip loads
+  ? `<video src="${x.video}" muted loop playsinline autoplay preload="auto" aria-label="${L(x.title)}"></video>`   // no poster: the old still image flashed before the clip
   : `<img src="${x.fig}" alt="${L(x.title)}">`;
 const figCap = x => `FIG.${x.n} — ${L(x.title)} · ${L({ ko: '개념 이미지', en: 'concept image' })}`;
 function initTabs() {
