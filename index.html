@@ -173,6 +173,7 @@ html { scroll-padding-top: 54px; }   /* anchor jumps land below the fixed header
 .hero .hero-en { text-transform: uppercase; letter-spacing: -0.02em; line-height: 1.04; }
 .hero .t-lead b { color: #fff; font-weight: 500; }
 .hero .t-lead { color: var(--muted-d); max-width: 520px; margin-bottom: 40px; }
+@media (max-width: 559px) { .hero .ctas { flex-wrap: nowrap; gap: 6px; } .hero .ctas .btn { flex: 1 1 auto; justify-content: center; min-height: 44px; padding: 10px 8px; font-size: 13.5px; gap: 0; } .hero .ctas .btn svg { display: none; } }
 @media (min-width: 960px) { html[lang="ko"] .hero .ctas { flex-wrap: nowrap; width: max-content; } .hero .ctas .btn { padding: 14px 18px; gap: 10px; } }
 .hero-note { margin-top: 14px; color: var(--muted-d); }
 .tagrail { display: flex; flex-wrap: wrap; gap: 10px; padding: 64px 0 96px; }
@@ -1021,14 +1022,30 @@ if (intro) {
     requestAnimationFrame(step);
   };
   const top = el => Math.round(el.getBoundingClientRect().top + scrollY);
+  // stops: hero bottom (0 when the hero fits the screen), the clip, POSITIONING; returns the stop to glide to, or undefined for native scrolling
+  const target = down => {
+    const it = top(intro), first = Math.max(0, it - innerHeight), stops = [first, it, top(pos)], y = scrollY;
+    if (y > stops[2] + 2 || (down && y < first - 2) || (!down && y <= first + 2)) return;
+    return down ? stops.find(v => v > y + 2) : [...stops].reverse().find(v => v < y - 2);
+  };
   addEventListener('wheel', e => {
-    const stops = [0, top(intro), top(pos)], y = scrollY, last = stops[2];
-    if (y > last + 2) return;                                // past POSITIONING: normal scrolling
-    if (moving) { e.preventDefault(); return; }
-    const next = e.deltaY > 0 ? stops.find(s => s > y + 2) : [...stops].reverse().find(s => s < y - 2);
-    if (next === undefined) return;
-    e.preventDefault(); go(next);
+    if (moving) { if (scrollY <= top(pos) + 2) e.preventDefault(); return; }
+    const t = target(e.deltaY > 0); if (t === undefined) return;
+    e.preventDefault(); go(t);
   }, { passive: false });
+  // touch: one swipe = one panel inside the same zone (native momentum would otherwise drift slowly between panels)
+  let ty = null, used = false;
+  addEventListener('touchstart', e => { ty = e.touches[0].clientY; used = false; }, { passive: true });
+  addEventListener('touchmove', e => {
+    if (ty === null) return;
+    const dy = ty - e.touches[0].clientY;
+    if (moving || used) { if (scrollY <= top(pos) + 2 && e.cancelable) e.preventDefault(); return; }
+    if (Math.abs(dy) < 12) return;
+    const t = target(dy > 0); if (t === undefined) return;
+    if (e.cancelable) e.preventDefault();
+    used = true; go(t);
+  }, { passive: false });
+  addEventListener('touchend', () => { ty = null; }, { passive: true });
   intro.querySelector('.intro-scroll').addEventListener('click', e => { e.preventDefault(); go(top(pos)); });
 }
 
