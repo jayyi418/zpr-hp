@@ -105,23 +105,19 @@ html[lang="en"] .chip { font-weight: 400; }
    ========================================================= */
 .hdr { position: fixed; inset: 0 0 auto 0; height: 54px; z-index: 20; background: rgba(3,10,31,.86); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid var(--hair-d); }
 html { scroll-padding-top: 54px; }   /* anchor jumps land below the fixed header */
-/* intro: full-screen motion graphic on the video's own beige, so the square clip reads as full-bleed */
+/* intro: full-screen motion graphic on the video's own navy, so the square clip reads as full-bleed */
 .intro-wrap { position: relative; }
-.intro { position: sticky; top: 0; height: 100vh; height: 100svh; display: grid; place-items: center; overflow: hidden; background: #E8E7E0; z-index: 0; }
+.intro { position: sticky; top: 0; height: 100vh; height: 100svh; display: grid; place-items: center; overflow: hidden; background: #010B20; z-index: 0; }
 .intro-v { width: min(100vw, 100svh); height: min(100vw, 100svh); object-fit: contain; }
 .intro-scroll { position: absolute; left: 50%; bottom: 22px; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 6px; color: #1b1d22; font: 500 11px var(--mono); letter-spacing: .14em; }
+.intro-scroll { color: var(--on-dark); opacity: .8; }
 .intro-scroll i { width: 14px; height: 14px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(45deg); animation: intro-bob 1.8s ease-in-out infinite; }
 @keyframes intro-bob { 50% { transform: translate(0, 5px) rotate(45deg); } }
 @media (prefers-reduced-motion: reduce) { .intro-scroll i { animation: none; } }
 .intro-wrap .hero { z-index: 1; }
-/* header while the intro is on screen: transparent with dark text */
+/* header while the intro is on screen: transparent over the navy clip */
 .hdr { transition: background .3s, border-color .3s, color .3s; }
-.hdr.on-light { background: transparent; border-bottom-color: transparent; -webkit-backdrop-filter: none; backdrop-filter: none; color: #14161c; }
-.hdr.on-light .logo, .hdr.on-light nav a { color: #14161c; }
-.hdr.on-light nav a:hover { color: var(--royal); }
-.hdr.on-light .ws { color: var(--royal); } .hdr.on-light .ws:hover { color: #14161c; }
-.hdr.on-light .lang a { color: #6b6f78; } .hdr.on-light .lang a[aria-current="true"] { color: #14161c; background: rgba(0,0,0,.07); }
-.hdr.on-light .btn-white { background: #14161c; color: #fff; }
+.hdr.on-light { background: transparent; border-bottom-color: transparent; -webkit-backdrop-filter: none; backdrop-filter: none; }
 #tech, #zpr { scroll-margin-top: -104px; }   /* skip most of the 144px section padding so headings sit where the company jump lands */
 /* compact core-tech block so heading, tabs and the whole panel fit one desktop screen after the header jump */
 #tech .center-head .t-h2 { font-size: 40px; margin: 8px 0 0; }
@@ -587,7 +583,7 @@ html:has(dialog.cf[open]) { overflow: hidden; }
 <!-- ================= 01 Hero ================= -->
 <div class="intro-wrap">
 <section class="intro" id="intro" aria-label="ZEPHYROS">
-  <video class="intro-v" src="assets/video/intro.mp4" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
+  <video class="intro-v" src="assets/video/intro-v7.mp4" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
   <a class="intro-scroll" href="#top" aria-label="아래로 스크롤"><i></i>SCROLL</a>
 </section>
 <section class="hero dark" id="top">
