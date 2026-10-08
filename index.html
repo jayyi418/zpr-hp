@@ -1392,7 +1392,9 @@ const FIGTXT = {
 const figImg = x => x.video
   ? `<video src="${x.video}" controls playsinline preload="metadata" aria-label="${L(x.title)}"></video>`   // no poster: the old still image flashed before the clip
   : `<img src="${x.fig}" alt="${L(x.title)}">`;
-const figCap = x => `FIG.${x.n} — ${L(x.title)} · ${L({ ko: '개념 이미지', en: 'concept image' })}`;
+const figCap = x => x.id === 'aidesign'
+  ? L({ ko: 'PCB 3D 설계 · EMC 검증 시각화', en: 'PCB 3D design · EMC verification visualization' })
+  : `FIG.${x.n} — ${L(x.title)} · ${L({ ko: '개념 이미지', en: 'concept image' })}`;
 function initTabs() {
   const list = $('.tabs'), panel = $('#tech-panel');
   list.innerHTML = TECH.map((x, i) => `<button class="tab" role="tab" id="tab-${x.id}" aria-controls="tech-panel" aria-selected="${i === 1}" tabindex="${i === 1 ? 0 : -1}" data-i="${i}"><span class="mono">${x.n}</span>${L(x.short)}<span class="tag${x.kind}">${x.kind}</span></button>`).join('');
