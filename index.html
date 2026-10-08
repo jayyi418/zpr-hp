@@ -1365,7 +1365,7 @@ const TECH = [
   { id: 'aidesign', n: '04', kind: 'SW', short: { ko: 'AI 설계 자동화', en: 'AI design' },
     title: { ko: 'AI 설계 자동화 · EMC 측정 표준', en: 'AI design automation & EMC measurement' },
     lead: { ko: 'AI 기반 설계 단계 EMC 사전 검증', en: 'AI-driven EMC verification at the design stage' },
-    fig: 'assets/images/tech-04-pcb.webp', video: 'assets/video/tech-04-pcb.mp4',
+    fig: 'assets/images/tech-04-pcb.webp', video: 'assets/videos/pcb-3d-20770365a2df.mp4',
     specs: [['98%', { ko: '측정-시뮬레이션 정합', en: 'Sim-to-measurement match' }], [{ ko: '2주', en: '2 wk' }, { ko: '개발 기간(종래 3개월)', en: 'Design cycle (was 3 months)' }], ['Full 3D', { ko: '시뮬레이션 사전 검증', en: 'Simulation pre-check' }],[{ ko: '1회', en: '1' }, { ko: '시제작(종래 30~50회)', en: 'Prototype (was 30–50)' }]],
     pap: [{ ko: '출시 직전에야 드러나는 EMC 문제', en: 'EMC problems that surface just before launch' },
           { ko: '20년 산업 데이터 × AI 설계 × Full 3D 시뮬레이션', en: '20 years of data × AI design × full 3D simulation' },
@@ -1390,7 +1390,7 @@ const FIGTXT = {
 
 /* tech figure (concept image) and its caption */
 const figImg = x => x.video
-  ? `<video src="${x.video}" muted loop playsinline autoplay preload="auto" aria-label="${L(x.title)}"></video>`   // no poster: the old still image flashed before the clip
+  ? `<video src="${x.video}" controls playsinline preload="metadata" aria-label="${L(x.title)}"></video>`   // no poster: the old still image flashed before the clip
   : `<img src="${x.fig}" alt="${L(x.title)}">`;
 const figCap = x => `FIG.${x.n} — ${L(x.title)} · ${L({ ko: '개념 이미지', en: 'concept image' })}`;
 function initTabs() {
@@ -1425,7 +1425,7 @@ function initTabs() {
   /* tab figures open larger on click (the 05 flow diagram is too wide to read inside the panel) */
   const zoom = $('#zoom');
   panel.addEventListener('click', e => {
-    const el = e.target.closest('.media img, .media video'); if (!el || !zoom.showModal) return;
+    const el = e.target.closest('.media img'); if (!el || !zoom.showModal) return;
     $$('img, video', zoom).forEach(n => n.remove());
     const big = el.tagName === 'VIDEO' ? Object.assign(document.createElement('video'), { src: el.currentSrc || el.src, muted: true, loop: true, playsInline: true, autoplay: true }) : Object.assign(document.createElement('img'), { src: el.src, alt: el.alt });
     zoom.prepend(big); zoom.showModal(); if (big.play) big.play().catch(() => {});
